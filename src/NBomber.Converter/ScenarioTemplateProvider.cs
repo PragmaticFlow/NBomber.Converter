@@ -26,12 +26,12 @@ namespace NBomber.Converter
                 }
                 catch (Exception ex)
                 {
-                    // handling of parser error
+                    return ex.Message;
                 }
             }
             else
             {
-                // handling of the template parsing error
+                return "Template parsing error";
             }
 
             return outputScenario;
