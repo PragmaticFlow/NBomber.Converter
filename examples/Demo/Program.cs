@@ -9,5 +9,6 @@ if (args.Length == 0)
 }    
 
 var har = HARDeserializer.GetHARObject(args[0]);
+var scenarioTemplate = ScenarioTemplateProvider.GetHARScenarioTemplate(har);
 
-Console.WriteLine(har.Log.Creator.Name);
+Console.WriteLine(scenarioTemplate);
