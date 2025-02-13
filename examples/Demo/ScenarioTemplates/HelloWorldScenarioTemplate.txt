@@ -18,7 +18,10 @@ public class ScenarioWithInit
                         {% comment %}
                         This request has no headers
                         {% endcomment %}
-                    {% endfor %};               
+                    {% endfor %}
+                    {% if entry.Request.PostData.Text != null %}
+                        .WithBody(new StringContent("{{ entry.Request.PostData.Text }}", Encoding.UTF8, "{{ entry.Request.PostData.MimeType }}"))
+                    {% endif %};          
                 });
             {% endfor %}      
         });

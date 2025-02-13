@@ -94,6 +94,21 @@ public class HARRequest
 
     [JsonProperty("bodySize")]
     public int BodySize { get; set; }
+
+    [JsonProperty("postData")]
+    public PostData PostData { get; set; }
+}
+
+public class PostData
+{
+    [JsonProperty("mimeType")]
+    public string MimeType { get; set; }
+
+    [JsonProperty("text")]
+    public string Text { get; set; }
+
+    [JsonProperty("params")]
+    public List<(string, string)> Params { get; set; }
 }
 
 public class HARResponse
