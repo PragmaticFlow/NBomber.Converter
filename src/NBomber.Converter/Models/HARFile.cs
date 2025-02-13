@@ -48,10 +48,10 @@ public class HARPage
 public class PageTimings
 {
     [JsonProperty("onContentLoad")]
-    public int OnContentLoad { get; set; }
+    public double OnContentLoad { get; set; }
 
     [JsonProperty("onLoad")]
-    public int OnLoad { get; set; }
+    public double OnLoad { get; set; }
 }
 
 public class HAREntry
@@ -60,7 +60,7 @@ public class HAREntry
     public DateTime StartedDateTime { get; set; }
 
     [JsonProperty("time")]
-    public int Time { get; set; }
+    public double Time { get; set; }
 
     [JsonProperty("request")]
     public HARRequest Request { get; set; }
@@ -132,25 +132,25 @@ public class HARContent
 public class HARTimings
 {
     [JsonProperty("blocked")]
-    public int Blocked { get; set; }
+    public double Blocked { get; set; }
 
     [JsonProperty("dns")]
-    public int Dns { get; set; }
+    public double Dns { get; set; }
 
     [JsonProperty("connect")]
-    public int Connect { get; set; }
+    public double Connect { get; set; }
 
     [JsonProperty("send")]
-    public int Send { get; set; }
+    public double Send { get; set; }
 
     [JsonProperty("wait")]
-    public int Wait { get; set; }
+    public double Wait { get; set; }
 
     [JsonProperty("receive")]
-    public int Receive { get; set; }
+    public double Receive { get; set; }
 
     [JsonProperty("ssl")]
-    public int Ssl { get; set; }
+    public double Ssl { get; set; }
 }
 
 public class Header
