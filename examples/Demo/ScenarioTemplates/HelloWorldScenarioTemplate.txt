@@ -13,14 +13,14 @@ public class ScenarioWithInit
                 {
                     var request = Http.CreateRequest("{{ entry.Request.Method }}", "{{ entry.Request.Url }}")
                     {% for header in entry.Request.Headers %}
-                        .WithHeader("{{ header.Name }}", "{{ header.Value }}");
+                        .WithHeader("{{ header.Name }}", "{{ header.Value | replace: '\"', '\\\"' }}")
                     {% else %}
                         {% comment %}
                         This request has no headers
                         {% endcomment %}
-                    {% endfor %}                    
+                    {% endfor %};               
                 });
-            {% endfor %}            
+            {% endfor %}      
         });
 
         NBomberRunner
