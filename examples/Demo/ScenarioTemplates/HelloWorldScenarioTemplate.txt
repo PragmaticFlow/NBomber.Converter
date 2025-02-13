@@ -11,8 +11,14 @@ public class ScenarioWithInit
             {% for entry in model.Log.Entries %}
                 var step{{ forloop.index }} = await Step.Run("action{{ forloop.index }}", context, async () =>
                 {
-                    await Task.Delay(1_000);
-                    return Response.Ok();
+                    var request = Http.CreateRequest("{{ entry.Request.Method }}", "{{ entry.Request.Url }}")
+                    {% for header in entry.Request.Headers %}
+                        .WithHeader("{{ header.Name }}", "{{ header.Value }}");
+                    {% else %}
+                        {% comment %}
+                        This request has no headers
+                        {% endcomment %}
+                    {% endfor %}                    
                 });
             {% endfor %}            
         });
