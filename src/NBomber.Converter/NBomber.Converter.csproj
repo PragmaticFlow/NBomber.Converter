@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <LangVersion>12.0</LangVersion>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <Company>NBomber</Company>
+        <Version>0.1.0</Version>
+        <Copyright>NBomber@2025</Copyright>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <PackageIcon>nbomber_icon.png</PackageIcon>
+        <RepositoryUrl>https://github.com/PragmaticFlow/NBomber.Http</RepositoryUrl>
+        <PackageTags>load-testing, performance-testing, integration-testing, fsharp</PackageTags>
+        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+        <Description>The toolset for converting data files such as HAR, Swagger/OpenAPI, Postman Collections to NBomber scenarios</Description>
+        <Title>NBomber.Converter</Title>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="../../LICENSE" Pack="true" Visible="false" PackagePath="" />
+        <None Include="../../assets/nbomber_icon.png" Pack="true" Visible="false" PackagePath="" />
+    </ItemGroup>
+    
+</Project>
