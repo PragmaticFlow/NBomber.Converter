@@ -1,196 +1,196 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 public class HARFile
 {
-    [JsonProperty("log")]
+    [JsonPropertyName("log")]
     public HARLog Log { get; set; }
 }
 
 public class HARLog
 {
-    [JsonProperty("version")]
+    [JsonPropertyName("version")]
     public string Version { get; set; }
 
-    [JsonProperty("creator")]
+    [JsonPropertyName("creator")]
     public Creator Creator { get; set; }
 
-    [JsonProperty("pages")]
+    [JsonPropertyName("pages")]
     public List<HARPage> Pages { get; set; }
 
-    [JsonProperty("entries")]
+    [JsonPropertyName("entries")]
     public List<HAREntry> Entries { get; set; }
 }
 
 public class Creator
 {
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public string Name { get; set; }
 
-    [JsonProperty("version")]
+    [JsonPropertyName("version")]
     public string Version { get; set; }
 }
 
 public class HARPage
 {
-    [JsonProperty("startedDateTime")]
+    [JsonPropertyName("startedDateTime")]
     public DateTime StartedDateTime { get; set; }
 
-    [JsonProperty("id")]
+    [JsonPropertyName("id")]
     public string Id { get; set; }
 
-    [JsonProperty("title")]
+    [JsonPropertyName("title")]
     public string Title { get; set; }
 
-    [JsonProperty("pageTimings")]
+    [JsonPropertyName("pageTimings")]
     public PageTimings PageTimings { get; set; }
 }
 
 public class PageTimings
 {
-    [JsonProperty("onContentLoad")]
+    [JsonPropertyName("onContentLoad")]
     public double OnContentLoad { get; set; }
 
-    [JsonProperty("onLoad")]
+    [JsonPropertyName("onLoad")]
     public double OnLoad { get; set; }
 }
 
 public class HAREntry
 {
-    [JsonProperty("startedDateTime")]
+    [JsonPropertyName("startedDateTime")]
     public DateTime StartedDateTime { get; set; }
 
-    [JsonProperty("time")]
+    [JsonPropertyName("time")]
     public double Time { get; set; }
 
-    [JsonProperty("request")]
+    [JsonPropertyName("request")]
     public HARRequest Request { get; set; }
 
-    [JsonProperty("response")]
+    [JsonPropertyName("response")]
     public HARResponse Response { get; set; }
 
-    [JsonProperty("timings")]
+    [JsonPropertyName("timings")]
     public HARTimings Timings { get; set; }
 }
 
 public class HARRequest
 {
-    [JsonProperty("method")]
+    [JsonPropertyName("method")]
     public string Method { get; set; }
 
-    [JsonProperty("url")]
+    [JsonPropertyName("url")]
     public string Url { get; set; }
 
-    [JsonProperty("httpVersion")]
+    [JsonPropertyName("httpVersion")]
     public string HttpVersion { get; set; }
 
-    [JsonProperty("headers")]
+    [JsonPropertyName("headers")]
     public List<Header> Headers { get; set; }
 
-    [JsonProperty("queryString")]
+    [JsonPropertyName("queryString")]
     public List<QueryString> QueryString { get; set; }
 
-    [JsonProperty("cookies")]
+    [JsonPropertyName("cookies")]
     public List<Cookie> Cookies { get; set; }
 
-    [JsonProperty("bodySize")]
+    [JsonPropertyName("bodySize")]
     public int BodySize { get; set; }
 
-    [JsonProperty("postData")]
+    [JsonPropertyName("postData")]
     public PostData PostData { get; set; }
 }
 
 public class PostData
 {
-    [JsonProperty("mimeType")]
+    [JsonPropertyName("mimeType")]
     public string MimeType { get; set; }
 
-    [JsonProperty("text")]
+    [JsonPropertyName("text")]
     public string Text { get; set; }
 
-    [JsonProperty("params")]
+    [JsonPropertyName("params")]
     public List<(string, string)> Params { get; set; }
 }
 
 public class HARResponse
 {
-    [JsonProperty("status")]
+    [JsonPropertyName("status")]
     public int Status { get; set; }
 
-    [JsonProperty("statusText")]
+    [JsonPropertyName("statusText")]
     public string StatusText { get; set; }
 
-    [JsonProperty("headers")]
+    [JsonPropertyName("headers")]
     public List<Header> Headers { get; set; }
 
-    [JsonProperty("cookies")]
+    [JsonPropertyName("cookies")]
     public List<Cookie> Cookies { get; set; }
 
-    [JsonProperty("content")]
+    [JsonPropertyName("content")]
     public HARContent Content { get; set; }
 
-    [JsonProperty("redirectURL")]
+    [JsonPropertyName("redirectURL")]
     public string RedirectUrl { get; set; }
 
-    [JsonProperty("bodySize")]
+    [JsonPropertyName("bodySize")]
     public int BodySize { get; set; }
 }
 
 public class HARContent
 {
-    [JsonProperty("mimeType")]
+    [JsonPropertyName("mimeType")]
     public string MimeType { get; set; }
 
-    [JsonProperty("size")]
+    [JsonPropertyName("size")]
     public int Size { get; set; }
 }
 
 public class HARTimings
 {
-    [JsonProperty("blocked")]
+    [JsonPropertyName("blocked")]
     public double Blocked { get; set; }
 
-    [JsonProperty("dns")]
+    [JsonPropertyName("dns")]
     public double Dns { get; set; }
 
-    [JsonProperty("connect")]
+    [JsonPropertyName("connect")]
     public double Connect { get; set; }
 
-    [JsonProperty("send")]
+    [JsonPropertyName("send")]
     public double Send { get; set; }
 
-    [JsonProperty("wait")]
+    [JsonPropertyName("wait")]
     public double Wait { get; set; }
 
-    [JsonProperty("receive")]
+    [JsonPropertyName("receive")]
     public double Receive { get; set; }
 
-    [JsonProperty("ssl")]
+    [JsonPropertyName("ssl")]
     public double Ssl { get; set; }
 }
 
 public class Header
 {
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public string Name { get; set; }
 
-    [JsonProperty("value")]
+    [JsonPropertyName("value")]
     public string Value { get; set; }
 }
 
 public class QueryString
 {
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public string Name { get; set; }
 
-    [JsonProperty("value")]
+    [JsonPropertyName("value")]
     public string Value { get; set; }
 }
 
 public class Cookie
 {
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public string Name { get; set; }
 
-    [JsonProperty("value")]
+    [JsonPropertyName("value")]
     public string Value { get; set; }
 }

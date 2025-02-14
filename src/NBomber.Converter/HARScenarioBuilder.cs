@@ -1,13 +1,19 @@
 ﻿using Fluid;
+using System.Text.Json;
 
 namespace NBomber.Converter
 {
-    public static class HARScenarioBuilder
+    public class HARScenarioBuilder
     {
-        // Move deserialization here
         // Test HTTP requests put, delete
-        // Remove Newtonsoft.JSON
-        public static string Build(HARFile harFile)
+        private readonly HARFile harFile;
+
+        public HARScenarioBuilder(string harFilePath)
+        {
+            harFile = GetHARObject(harFilePath);
+        }
+
+        public string Build()
         {
             string templateLocation = @"ScenarioTemplates/HelloWorldScenarioTemplate.txt";
             string templateContent = File.ReadAllText(templateLocation);
@@ -38,6 +44,13 @@ namespace NBomber.Converter
             }
 
             return outputScenario;
+        }
+
+        private HARFile GetHARObject(string harFilePath)
+        {
+            string harJson = File.ReadAllText(harFilePath);
+
+            return JsonSerializer.Deserialize<HARFile>(harJson);
         }
     }
 }
