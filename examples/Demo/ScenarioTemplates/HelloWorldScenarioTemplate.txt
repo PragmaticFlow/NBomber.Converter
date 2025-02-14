@@ -1,4 +1,7 @@
 ﻿using NBomber.CSharp;
+using NBomber.Http;
+using NBomber.Http.CSharp;
+using System.Text;
 
 namespace Demo.HelloWorld;
 
@@ -6,22 +9,28 @@ public class ScenarioWithInit
 {
     public void Run()
     {
+        using var httpClient = new HttpClient();
+
         var scn1 = Scenario.Create("scenario_1", async context =>
         {
             {% for entry in model.Log.Entries %}
                 var step{{ forloop.index }} = await Step.Run("action{{ forloop.index }}", context, async () =>
                 {
                     var request = Http.CreateRequest("{{ entry.Request.Method }}", "{{ entry.Request.Url }}")
-                    {% for header in entry.Request.Headers %}
+                    {% for header in entry.Request.Headers -%}
                         .WithHeader("{{ header.Name }}", "{{ header.Value | replace: '\"', '\\\"' }}")
-                    {% else %}
+                    {% else -%}
                         {% comment %}
                         This request has no headers
                         {% endcomment %}
-                    {% endfor %}
-                    {% if entry.Request.PostData.Text != null %}
+                    {% endfor -%}
+                    {% if entry.Request.PostData.Text != null -%}
                         .WithBody(new StringContent("{{ entry.Request.PostData.Text }}", Encoding.UTF8, "{{ entry.Request.PostData.MimeType }}"))
-                    {% endif %};          
+                    {% endif %};
+
+                    var response = await Http.Send(httpClient, request);
+
+                    return response;        
                 });
             {% endfor %}      
         });

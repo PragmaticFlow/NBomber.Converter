@@ -2,9 +2,12 @@
 
 namespace NBomber.Converter
 {
-    public static class ScenarioTemplateProvider
+    public static class HARScenarioBuilder
     {
-        public static string GetHARScenarioTemplate(HARFile harFile)
+        // Move deserialization here
+        // Test HTTP requests put, delete
+        // Remove Newtonsoft.JSON
+        public static string Build(HARFile harFile)
         {
             string templateLocation = @"ScenarioTemplates/HelloWorldScenarioTemplate.txt";
             string templateContent = File.ReadAllText(templateLocation);
