@@ -8,7 +8,8 @@ if (args.Length == 0)
     return;
 }    
 
-var har = HARDeserializer.GetHARObject(args[0]);
+var har = HARConverter.GetHARObject(args[0]);
 var scenarioTemplate = ScenarioTemplateProvider.GetHARScenarioTemplate(har);
+var status = FileWriter.WriteFile("./HelloWorldScenario.cs", scenarioTemplate);
 
-Console.WriteLine(scenarioTemplate);
+Console.WriteLine(status);

@@ -2,7 +2,7 @@
 
 using Newtonsoft.Json;
 
-public static class HARDeserializer
+public static class HARConverter
 {
     public static HARFile GetHARObject(string harFilePath)
     {
