@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Demo.HelloWorld;
 
-public class ScenarioWithInit
+public class HelloWorldScenario
 {
     public void Run()
     {
@@ -13,26 +13,29 @@ public class ScenarioWithInit
 
         var scn1 = Scenario.Create("scenario_1", async context =>
         {
-            {% for entry in model.Log.Entries %}
-                var step{{ forloop.index }} = await Step.Run("action{{ forloop.index }}", context, async () =>
-                {
-                    var request = Http.CreateRequest("{{ entry.Request.Method }}", "{{ entry.Request.Url }}")
+        {% for entry in model.Log.Entries %}
+            var step{{ forloop.index }} = await Step.Run("action{{ forloop.index }}", context, async () =>
+            {
+                var request = Http.CreateRequest("{{ entry.Request.Method }}", "{{ entry.Request.Url }}")
                     {% for header in entry.Request.Headers -%}
                         .WithHeader("{{ header.Name }}", "{{ header.Value | replace: '\"', '\\\"' }}")
+                    {% if forloop.last -%}
+                        .WithHeader("{{ header.Name }}", "{{ header.Value | replace: '\"', '\\\"' }}");
+                    {% endif -%}
                     {% else -%}
                         {% comment %}
                         This request has no headers
                         {% endcomment %}
                     {% endfor -%}
-                    {% if entry.Request.PostData.Text != null -%}
-                        .WithBody(new StringContent("{{ entry.Request.PostData.Text }}", Encoding.UTF8, "{{ entry.Request.PostData.MimeType }}"))
-                    {% endif %};
 
-                    var response = await Http.Send(httpClient, request);
+            {% if entry.Request.PostData.Text != null %}
+                request.WithBody(new StringContent("{{ entry.Request.PostData.Text }}", Encoding.UTF8, "{{ entry.Request.PostData.MimeType }}"));
+            {% endif %}            
+                var response = await Http.Send(httpClient, request);
 
-                    return response;        
-                });
-            {% endfor %}      
+                return response;        
+            });
+        {% endfor %} 
         });
 
         NBomberRunner
