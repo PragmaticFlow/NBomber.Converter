@@ -1,11 +1,10 @@
 ﻿using NBomber.CSharp;
-using NBomber.Http;
 using NBomber.Http.CSharp;
 using System.Text;
 
 namespace Demo.HelloWorld;
 
-public class HelloWorldScenario
+public class HelloWorldExample
 {
     public void Run()
     {
@@ -32,13 +31,14 @@ public class HelloWorldScenario
                     {% endfor -%}
 
             {% if entry.Request.PostData.Text != null %}
-                request.WithBody(new StringContent("{{ entry.Request.PostData.Text }}", Encoding.UTF8, "{{ entry.Request.PostData.MimeType }}"));
+                request.WithBody(new StringContent("{{ entry.Request.PostData.Text | replace: '\n', '\\n' | replace: '\"', '\\\"' }}", Encoding.UTF8, "{{ entry.Request.PostData.MimeType }}"));
             {% endif %}            
                 var response = await Http.Send(httpClient, request);
 
                 return response;        
             });
         {% endfor %} 
+            return Response.Ok();
         });
 
         NBomberRunner
