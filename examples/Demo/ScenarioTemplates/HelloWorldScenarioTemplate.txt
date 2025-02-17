@@ -42,7 +42,8 @@ public class HelloWorldExample
             });
         {% endfor %} 
             return Response.Ok();
-        });
+        })
+            .WithRestartIterationOnFail(shouldRestart: false);
 
         NBomberRunner
             .RegisterScenarios(scn1)

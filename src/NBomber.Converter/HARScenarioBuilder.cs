@@ -6,7 +6,6 @@ namespace NBomber.Converter
 {
     public class HARScenarioBuilder
     {
-        // Test HTTP requests put, delete
         private readonly HARFile harFile;
 
         public HARScenarioBuilder(string harFilePath)
@@ -53,10 +52,7 @@ namespace NBomber.Converter
             var har = JsonSerializer.Deserialize<HARFile>(harJson);
 
             for (int i = 0; i < har.Log.Entries.Count; i++)
-            {
-                var harRequestWithActionName = har.Log.Entries[i].Request.ToHARRequestWithActionName();
-                har.Log.Entries[i].Request = harRequestWithActionName;
-            }
+                har.Log.Entries[i].Request = har.Log.Entries[i].Request.ToHARRequestWithActionName();
 
             return har;
         }
