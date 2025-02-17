@@ -17,10 +17,12 @@ public class HelloWorldExample
             {
                 var request = Http.CreateRequest("{{ entry.Request.Method }}", "{{ entry.Request.Url }}")
                     {% for header in entry.Request.Headers -%}
-                        .WithHeader("{{ header.Name }}", "{{ header.Value | replace: '\"', '\\\"' }}")
+                    {%- unless header.Name contains ":" -%}
+                    .WithHeader("{{ header.Name }}", "{{ header.Value | replace: '\"', '\\\"' }}")
                     {% if forloop.last -%}
                         .WithHeader("{{ header.Name }}", "{{ header.Value | replace: '\"', '\\\"' }}");
                     {% endif -%}
+                    {%- endunless -%}                        
                     {% else -%}
                         {% comment %}
                         This request has no headers
