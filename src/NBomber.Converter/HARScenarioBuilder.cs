@@ -1,4 +1,5 @@
 ﻿using Fluid;
+using NBomber.Converter.Mappers;
 using System.Text.Json;
 
 namespace NBomber.Converter
@@ -49,8 +50,15 @@ namespace NBomber.Converter
         private HARFile GetHARObject(string harFilePath)
         {
             string harJson = File.ReadAllText(harFilePath);
+            var har = JsonSerializer.Deserialize<HARFile>(harJson);
 
-            return JsonSerializer.Deserialize<HARFile>(harJson);
+            for (int i = 0; i < har.Log.Entries.Count; i++)
+            {
+                var harRequestWithActionName = har.Log.Entries[i].Request.ToHARRequestWithActionName();
+                har.Log.Entries[i].Request = harRequestWithActionName;
+            }
+
+            return har;
         }
     }
 }

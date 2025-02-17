@@ -13,10 +13,7 @@ public class HelloWorldExample
         var scn1 = Scenario.Create("scenario_1", async context =>
         {
         {% for entry in model.Log.Entries %}
-            {%- assign url = entry.Request.Url -%}
-            {%- assign parts = url | split: "://" -%}
-            {%- assign path = parts[1] | split: "/" | slice: 1, 1000 | join: "/" %}
-            var step{{ forloop.index }} = await Step.Run("{{ entry.Request.Method }} {{ path }}", context, async () =>
+            var step{{ forloop.index }} = await Step.Run("{{ entry.Request.ActionName }}", context, async () =>
             {
                 var request = Http.CreateRequest("{{ entry.Request.Method }}", "{{ entry.Request.Url }}")
                     {% for header in entry.Request.Headers -%}
@@ -31,7 +28,13 @@ public class HelloWorldExample
                     {% endfor -%}
 
             {% if entry.Request.PostData.Text != null %}
-                request.WithBody(new StringContent("{{ entry.Request.PostData.Text | replace: '\n', '\\n' | replace: '\"', '\\\"' }}", Encoding.UTF8, "{{ entry.Request.PostData.MimeType }}"));
+                {%- if entry.Request.PostData.MimeType contains "application" %}
+                    request.WithBody(new StringContent("{{ entry.Request.PostData.Text | replace: '\n', '\\n' | replace: '\"', '\\\"' }}", Encoding.UTF8, "{{ entry.Request.PostData.MimeType }}"));
+                {%- elsif entry.Request.PostData.MimeType contains "image" -%}
+                    request.WithBody(new ByteArrayContent("{{ entry.Request.PostData.Text | replace: '\n', '\\n' | replace: '\"', '\\\"' }}"));
+                {%- else -%}
+                    request.WithBody(new StringContent("{{ entry.Request.PostData.Text | replace: '\n', '\\n' | replace: '\"', '\\\"' }}", Encoding.UTF8, "{{ entry.Request.PostData.MimeType }}"));
+                {%- endif %}                
             {% endif %}            
                 var response = await Http.Send(httpClient, request);
 
