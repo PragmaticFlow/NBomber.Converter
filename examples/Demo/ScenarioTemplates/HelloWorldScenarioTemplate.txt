@@ -18,9 +18,9 @@ public class HelloWorldExample
                 var request = Http.CreateRequest("{{ entry.Request.Method }}", "{{ entry.Request.Url }}")
                     {% for header in entry.Request.Headers -%}
                     {%- unless header.Name contains ":" -%}
-                    .WithHeader("{{ header.Name }}", "{{ header.Value | replace: '\"', '\\\"' }}")
+                    .WithHeader("{{ header.Name }}", "{{ header.Value | escape }}")
                     {% if forloop.last -%}
-                        .WithHeader("{{ header.Name }}", "{{ header.Value | replace: '\"', '\\\"' }}");
+                        .WithHeader("{{ header.Name }}", "{{ header.Value | escape }}");
                     {% endif -%}
                     {%- endunless -%}                        
                     {% else -%}
@@ -30,12 +30,11 @@ public class HelloWorldExample
                     {% endfor -%}
 
             {% if entry.Request.PostData.Text != null %}
-                {%- if entry.Request.PostData.MimeType contains "application" %}
-                    request.WithBody(new StringContent("{{ entry.Request.PostData.Text | replace: '\n', '\\n' | replace: '\"', '\\\"' }}", Encoding.UTF8, "{{ entry.Request.PostData.MimeType }}"));
-                {%- elsif entry.Request.PostData.MimeType contains "image" -%}
-                    request.WithBody(new ByteArrayContent("{{ entry.Request.PostData.Text | replace: '\n', '\\n' | replace: '\"', '\\\"' }}"));
+                {%- if entry.Request.PostData.MimeType contains ";" %}
+                    {%- assign mimeTypeResult = entry.Request.PostData.MimeType | split: ";" -%}
+                    request.WithBody(new StringContent(@"{{ entry.Request.PostData.Text | escape }}", Encoding.UTF8, "{{ mimeTypeResult[0] }}"));
                 {%- else -%}
-                    request.WithBody(new StringContent("{{ entry.Request.PostData.Text | replace: '\n', '\\n' | replace: '\"', '\\\"' }}", Encoding.UTF8, "{{ entry.Request.PostData.MimeType }}"));
+                    request.WithBody(new StringContent(@"{{ entry.Request.PostData.Text | escape }}", Encoding.UTF8, "{{ entry.Request.PostData.MimeType }}"));
                 {%- endif %}                
             {% endif %}            
                 var response = await Http.Send(httpClient, request);
