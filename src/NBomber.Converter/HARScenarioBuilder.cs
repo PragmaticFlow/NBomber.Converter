@@ -1,5 +1,6 @@
 ﻿using Fluid;
 using NBomber.Converter.Mappers;
+using System.Reflection;
 using System.Text.Json;
 
 namespace NBomber.Converter
@@ -15,9 +16,24 @@ namespace NBomber.Converter
 
         public string Build()
         {
-            string templateLocation = @"ScenarioTemplates/HelloWorldScenarioTemplate.txt";
-            string templateContent = File.ReadAllText(templateLocation);
-            string outputScenario = String.Empty;
+            var assembly = Assembly.GetExecutingAssembly();
+            string templateResourceName = "NBomber.Converter.HelloWorldScenarioTemplate.txt";
+            string templateContent, outputScenario;
+
+            using (Stream stream = assembly.GetManifestResourceStream(templateResourceName))
+            {
+                if (stream != null)
+                {
+                    using (StreamReader reader = new StreamReader(stream))
+                    {
+                        templateContent = reader.ReadToEnd();
+                    }
+                }
+                else
+                {
+                    return "Scenario template not found!";
+                }
+            }
 
             var parser = new FluidParser();
 
@@ -27,11 +43,11 @@ namespace NBomber.Converter
             {
                 TemplateOptions options = new TemplateOptions();
                 options.MemberAccessStrategy = new UnsafeMemberAccessStrategy();
-                var ctx = new TemplateContext(
+                var templateContext = new TemplateContext(
                                    new { model = harFile }, options, true);
                 try
                 {
-                    outputScenario = template.Render(ctx);
+                    outputScenario = template.Render(templateContext);
                 }
                 catch (Exception ex)
                 {

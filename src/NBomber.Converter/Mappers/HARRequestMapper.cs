@@ -2,7 +2,7 @@
 
 namespace NBomber.Converter.Mappers
 {
-    public static class HARRequestMappers
+    public static class HARRequestMapper
     {
         public static HARRequestWithActionName ToHARRequestWithActionName(this HARRequest harRequest)
         {

@@ -11,4 +11,10 @@
       <ProjectReference Include="..\..\src\NBomber.Converter\NBomber.Converter.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="HarExample.har">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

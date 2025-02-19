@@ -20,6 +20,12 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <EmbeddedResource Include="HelloWorldScenarioTemplate.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
         <None Include="../../LICENSE" Pack="true" Visible="false" PackagePath="" />
         <None Include="../../assets/nbomber_icon.png" Pack="true" Visible="false" PackagePath="" />
     </ItemGroup>
