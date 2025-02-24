@@ -1,11 +1,11 @@
-using System.Diagnostics;
+using Microsoft.CodeAnalysis;
 
 namespace NBomber.Converter.Tests;
 
 public class HARCoverterTests
 {
     [Fact]
-    public void Build_HarExample_SameAsManualScenario()
+    public void Convert_Should_Convert_HARFile_To_NBomberScenario()
     {
         // Arrange
         string manualScenario = File.ReadAllText(@"ManualScenario.cs");
@@ -20,39 +20,36 @@ public class HARCoverterTests
         Assert.Equal(manualScenario, generatedScenario);
     }
 
+
     [Fact]
-    public async void Run_GeneratedScenario_RunSuccessfully()
+    public void EndToEnd()
     {
         // Arrange
         string harPath = "HarExample_4steps.har";
         var generatedScenario = HARScenarioConverter.Convert(harPath);
 
-        if (Directory.Exists("reports"))
-            Directory.Delete("reports", true);
+        ConverterTestHelper.DeleteReportsIfExists();        
 
-        // Build scenario
-        string scenarioNuGetPackages =
-        "#r \"nuget: NBomber, 5.8.2\"\n" +
-        "#r \"nuget: NBomber.Http, 5.2.1\"\n" +
-        "#r \"nuget: System.Net.Http, 4.3.4\"\n";
-        string entryPoint = "\nnew HelloWorldExample().Run();";
-        generatedScenario = scenarioNuGetPackages + generatedScenario + entryPoint;
+        string invokePart = @"
+        
+        public class Program
+        {
+            public static void Main()
+            {
+                new HelloWorldExample().Run();
+            }
+        }";
 
-        // Write script file
-        string scriptPath = "HelloWorldScenario.csx";
-        FileWriter.WriteFile(scriptPath, generatedScenario);
+        string code = generatedScenario + invokePart;
 
-        string executable = "powershell.exe";
-        string arguments = $"dotnet script {scriptPath}"; // Roslyn check
-
-        // Create the process
-        Process process = new Process();
-        process.StartInfo.FileName = executable;
-        process.StartInfo.Arguments = arguments;
+        var assemblies = new string[]
+        {
+            "NBomber.dll",
+            "NBomber.Http.dll"
+        };
 
         // Act
-        process.Start();
-        await Task.Run(() => process.WaitForExit());
+        ConverterTestHelper.RunCSharpCode(code, assemblies);        
 
         // Get current report folder
         var reportFolderName = Directory.GetDirectories("reports").FirstOrDefault();
