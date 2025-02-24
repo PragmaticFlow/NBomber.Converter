@@ -9,12 +9,12 @@ public class HARCoverterTests
     {
         // Arrange
         string manualScenario = File.ReadAllText(@"ManualScenario.cs");
-        manualScenario = manualScenario.Replace(" ", String.Empty);
+        manualScenario = ConverterTestHelper.RemoveSpacesAndBackslashSymbols(manualScenario);
         string harPath = @"HarExample_4steps.har";
 
         // Act
         var generatedScenario = HARScenarioConverter.Convert(harPath);
-        generatedScenario = generatedScenario.Replace(" ", String.Empty);
+        generatedScenario = ConverterTestHelper.RemoveSpacesAndBackslashSymbols(generatedScenario);
 
         // Assert
         Assert.Equal(manualScenario, generatedScenario);

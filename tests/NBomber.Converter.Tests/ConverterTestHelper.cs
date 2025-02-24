@@ -12,6 +12,15 @@ namespace NBomber.Converter
                 Directory.Delete("reports", true);
         }
 
+        public static string RemoveSpacesAndBackslashSymbols(string input)
+        {
+            input = input.Replace(" ", String.Empty);
+            input = input.Replace("\n", String.Empty);
+            input = input.Replace("\r", String.Empty);
+
+            return input;
+        }
+
         public static void RunCSharpCode(string code, string[] assemblies)
         {
             // Create a syntax tree from the code
