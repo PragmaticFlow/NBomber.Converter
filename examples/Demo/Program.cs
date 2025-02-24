@@ -8,7 +8,7 @@ if (args.Length == 0)
     return;
 }    
 
-var scenario = new HARScenarioBuilder(args[0]).Build();
+var scenario = HARScenarioConverter.Convert(args[0]);
 
 string savePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/HelloWorldScenario.cs"; 
 var status = FileWriter.WriteFile(savePath, scenario);

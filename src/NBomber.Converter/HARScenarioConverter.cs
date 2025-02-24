@@ -5,17 +5,12 @@ using System.Text.Json;
 
 namespace NBomber.Converter
 {
-    public class HARScenarioBuilder
+    public static class HARScenarioConverter
     {
-        private readonly HARFile harFile;
-
-        public HARScenarioBuilder(string harFilePath)
+        public static string Convert(string harFilePath)
         {
-            harFile = GetHARObject(harFilePath);
-        }
+            HARFile harFile = GetHARObject(harFilePath);
 
-        public string Build()
-        {
             var assembly = Assembly.GetExecutingAssembly();
             string templateResourceName = "NBomber.Converter.HelloWorldScenarioTemplate.txt";
             string templateContent, outputScenario;
@@ -62,7 +57,7 @@ namespace NBomber.Converter
             return outputScenario;
         }
 
-        private HARFile GetHARObject(string harFilePath)
+        private static HARFile GetHARObject(string harFilePath)
         {
             string harJson = File.ReadAllText(harFilePath);
             var har = JsonSerializer.Deserialize<HARFile>(harJson);

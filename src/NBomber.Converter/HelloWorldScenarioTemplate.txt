@@ -1,8 +1,7 @@
 ﻿using NBomber.CSharp;
 using NBomber.Http.CSharp;
 using System.Text;
-
-namespace Demo.HelloWorld;
+using System.Net.Http;
 
 public class HelloWorldExample
 {
