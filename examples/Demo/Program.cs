@@ -1,16 +1,6 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using NBomber.Converter;
 
-using NBomber.Converter;
-
-if (args.Length == 0)
-{
-    Console.WriteLine("HAR file location was not specified!");
-    return;
-}    
-
-var scenario = HARScenarioConverter.Convert(args[0]);
-
-string savePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/HelloWorldScenario.cs"; 
+var scenario = HARScenarioConverter.Convert("HarExample_15steps.har");
+string savePath = "HelloWorldScenario.cs"; 
 var status = FileWriter.WriteFile(savePath, scenario);
-
 Console.WriteLine(status);
