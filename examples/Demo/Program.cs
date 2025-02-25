@@ -1,6 +1,6 @@
 ﻿using NBomber.Converter;
 
-var scenario = HARScenarioConverter.Convert("HarExample_15steps.har");
-string savePath = "HelloWorldScenario.cs"; 
-var status = FileWriter.WriteFile(savePath, scenario);
-Console.WriteLine(status);
+var harFileContent = File.ReadAllText("HarExample_15steps.har");
+var scenario = HARScenarioConverter.Convert(harFileContent);
+
+File.WriteAllText("HelloWorldScenario.cs", scenario);

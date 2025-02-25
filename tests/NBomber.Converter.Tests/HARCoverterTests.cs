@@ -8,12 +8,12 @@ public class HARCoverterTests
     public void Convert_Should_Convert_HARFile_To_NBomberScenario()
     {
         // Arrange
-        string scenarioForComparison = File.ReadAllText(@"Resources/GeneratedScenarioForComparison.cs");
+        var scenarioForComparison = File.ReadAllText(@"Resources/GeneratedScenarioForComparison.cs");
         scenarioForComparison = ConverterTestHelper.RemoveSpacesAndBackslashSymbols(scenarioForComparison);
-        string harPath = @"HarExample_4steps.har";
+        var harFileContent = File.ReadAllText(@"HarExample_4steps.har");
 
         // Act
-        var generatedScenario = HARScenarioConverter.Convert(harPath);
+        var generatedScenario = HARScenarioConverter.Convert(harFileContent);
         generatedScenario = ConverterTestHelper.RemoveSpacesAndBackslashSymbols(generatedScenario);
 
         // Assert
@@ -25,12 +25,12 @@ public class HARCoverterTests
     public void EndToEnd()
     {
         // Arrange
-        string harPath = "HarExample_4steps.har";
-        var generatedScenario = HARScenarioConverter.Convert(harPath);
+        var harFileContent = File.ReadAllText(@"HarExample_4steps.har");
+        var generatedScenario = HARScenarioConverter.Convert(harFileContent);
 
         ConverterTestHelper.DeleteReportsIfExists();        
 
-        string invokePart = @"
+        var invokePart = @"
         
         public class Program
         {
@@ -40,7 +40,7 @@ public class HARCoverterTests
             }
         }";
 
-        string code = generatedScenario + invokePart;
+        var code = generatedScenario + invokePart;
 
         var assemblies = new string[]
         {
@@ -56,7 +56,7 @@ public class HARCoverterTests
 
         // Get report row count (row with column names + row with global statistics + step number = 6)
         var csvFileName = Directory.GetFiles(reportFolderName, "*.csv").FirstOrDefault();
-        int rowCount = File.ReadLines(csvFileName).Count();
+        var rowCount = File.ReadLines(csvFileName).Count();
 
         // Assert
         Assert.Equal(6, rowCount);
