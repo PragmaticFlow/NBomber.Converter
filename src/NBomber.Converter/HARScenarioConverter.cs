@@ -1,5 +1,5 @@
 ﻿using Fluid;
-using NBomber.Converter.Mappers;
+using NBomber.Converter.Models;
 using System.Reflection;
 using System.Text.Json;
 
@@ -21,9 +21,27 @@ namespace NBomber.Converter
             var har = JsonSerializer.Deserialize<HARFile>(harFileContent);
 
             for (int i = 0; i < har.Log.Entries.Count; i++)
-                har.Log.Entries[i].Request = har.Log.Entries[i].Request.ToHARRequestWithActionName();
+                har.Log.Entries[i].Request = GetHARRequestWithActionName(har.Log.Entries[i].Request);
 
             return har;
+        }
+
+        private static HARRequestWithActionName GetHARRequestWithActionName(HARRequest harRequest)
+        {
+            var uri = new Uri(harRequest.Url);
+
+            return new HARRequestWithActionName
+            {
+                Method = harRequest.Method,
+                Url = harRequest.Url,
+                HttpVersion = harRequest.HttpVersion,
+                Headers = harRequest.Headers,
+                QueryString = harRequest.QueryString,
+                Cookies = harRequest.Cookies,
+                BodySize = harRequest.BodySize,
+                PostData = harRequest.PostData,
+                ActionName = $"{harRequest.Method} {uri.Host}{uri.PathAndQuery}"
+            };
         }
 
         private static IFluidTemplate GetScenarioTemplate()
