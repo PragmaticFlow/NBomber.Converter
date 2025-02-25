@@ -1,3 +1,6 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using NBomber.Converter;
 
-Console.WriteLine("Hello, World!");
+var harFileContent = File.ReadAllText("HarExample_15steps.har");
+var scenario = HARScenarioConverter.Convert(harFileContent);
+
+File.WriteAllText("HelloWorldScenario.cs", scenario);
