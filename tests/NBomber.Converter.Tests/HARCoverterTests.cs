@@ -8,8 +8,8 @@ public class HARCoverterTests
     public void Convert_Should_Convert_HARFile_To_NBomberScenario()
     {
         // Arrange
-        string manualScenario = File.ReadAllText(@"ManualScenario.cs");
-        manualScenario = ConverterTestHelper.RemoveSpacesAndBackslashSymbols(manualScenario);
+        string scenarioForComparison = File.ReadAllText(@"Resources/GeneratedScenarioForComparison.cs");
+        scenarioForComparison = ConverterTestHelper.RemoveSpacesAndBackslashSymbols(scenarioForComparison);
         string harPath = @"HarExample_4steps.har";
 
         // Act
@@ -17,7 +17,7 @@ public class HARCoverterTests
         generatedScenario = ConverterTestHelper.RemoveSpacesAndBackslashSymbols(generatedScenario);
 
         // Assert
-        Assert.Equal(manualScenario, generatedScenario);
+        Assert.Equal(scenarioForComparison, generatedScenario);
     }
 
 

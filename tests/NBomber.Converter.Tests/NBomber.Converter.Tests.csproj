@@ -28,7 +28,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="ManualScenario.cs">
+      <Compile Update="Resources\GeneratedScenarioForComparison.cs">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Compile>
     </ItemGroup>
