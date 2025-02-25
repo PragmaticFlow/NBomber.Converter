@@ -34,6 +34,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <None Update="CorruptedHar_4steps.har">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
       <None Update="HarExample_4steps.har">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
