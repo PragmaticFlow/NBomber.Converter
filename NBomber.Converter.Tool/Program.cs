@@ -5,14 +5,17 @@ using NBomber.Converter;
 Parser.Default.ParseArguments<Options>(args)
     .WithParsed<Options>(o =>
     {
-        var converterType = Path.GetExtension(o.InputFilePath).ToLower();
+        var fileExtension = Path.GetExtension(o.InputFilePath).ToLower();
         var content = File.ReadAllText(o.InputFilePath);
 
-        switch (converterType)
+        switch (fileExtension)
         {
             case ".har":
+                Console.WriteLine($"Converting {o.InputFilePath}");
                 var scenario = HARScenarioConverter.Convert(content);
+
                 File.WriteAllText(o.OutputFilePath, scenario);
+                Console.WriteLine($"Wrote NBomber scenario to {o.OutputFilePath}");
                 break;
             default:
                 Console.WriteLine("Unknown file type");

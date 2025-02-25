@@ -61,8 +61,7 @@ namespace NBomber.Converter
         {
             TemplateOptions options = new TemplateOptions();
             options.MemberAccessStrategy = new UnsafeMemberAccessStrategy();
-            var templateContext = new TemplateContext(
-                               new { model = harFile }, options, true);
+            var templateContext = new TemplateContext(new { model = harFile }, options, true);
             try
             {
                 return template.Render(templateContext);
