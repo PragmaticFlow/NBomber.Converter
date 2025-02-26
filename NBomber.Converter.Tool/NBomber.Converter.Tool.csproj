@@ -6,7 +6,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackAsTool>true</PackAsTool>
-    <PackageId>nb-converter</PackageId>
     <ToolCommandName>nb-converter</ToolCommandName>
   </PropertyGroup>
 

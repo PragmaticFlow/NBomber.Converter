@@ -17,8 +17,11 @@ namespace NBomber.Converter
         }
 
         private static HARFile ParseHARFile(string harFileContent)
-        {            
+        {
             var har = JsonSerializer.Deserialize<HARFile>(harFileContent);
+
+            if (har.Log.Entries == null)
+                throw new NullReferenceException("Entries field is missing");
 
             for (int i = 0; i < har.Log.Entries.Count; i++)
                 har.Log.Entries[i].Request = GetHARRequestWithActionName(har.Log.Entries[i].Request);

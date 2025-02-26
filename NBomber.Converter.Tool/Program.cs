@@ -12,10 +12,18 @@ Parser.Default.ParseArguments<Options>(args)
         {
             case ".har":
                 Console.WriteLine($"Converting {o.InputFilePath}");
-                var scenario = HARScenarioConverter.Convert(content);
+                var scenario = String.Empty;
 
-                File.WriteAllText(o.OutputFilePath, scenario);
-                Console.WriteLine($"Wrote NBomber scenario to {o.OutputFilePath}");
+                try
+                {
+                    scenario = HARScenarioConverter.Convert(content);
+                    File.WriteAllText(o.OutputFilePath, scenario);
+                    Console.WriteLine($"Wrote NBomber scenario to {o.OutputFilePath}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }               
                 break;
             default:
                 Console.WriteLine("Unknown file type");
