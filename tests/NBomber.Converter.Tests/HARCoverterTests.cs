@@ -1,4 +1,5 @@
 using Microsoft.CodeAnalysis;
+using NBomber.Converter.Models;
 
 namespace NBomber.Converter.Tests;
 
@@ -20,6 +21,18 @@ public class HARCoverterTests
         Assert.Equal(scenarioForComparison, generatedScenario);
     }
 
+    [Fact]
+    public void Convert_Corrupted_HAR_Should_Throw_NullReferenceException()
+    {
+        // Arrange
+        var harFileContent = File.ReadAllText(@"CorruptedHar_4steps.har");
+
+        // Act
+        Action act = () => HARScenarioConverter.Convert(harFileContent);
+
+        // Assert
+        Assert.Throws<FileFormatException>(act);
+    }
 
     [Fact]
     public void EndToEnd()
