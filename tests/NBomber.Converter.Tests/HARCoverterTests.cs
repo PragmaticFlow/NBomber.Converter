@@ -30,7 +30,7 @@ public class HARCoverterTests
         Action act = () => HARScenarioConverter.Convert(harFileContent);
 
         // Assert
-        Assert.Throws<NullReferenceException>(act);
+        Assert.Throws<Exception>(act);
     }
 
 
