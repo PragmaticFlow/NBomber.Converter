@@ -1,4 +1,5 @@
 using Microsoft.CodeAnalysis;
+using NBomber.Converter.Models;
 
 namespace NBomber.Converter.Tests;
 
@@ -30,9 +31,8 @@ public class HARCoverterTests
         Action act = () => HARScenarioConverter.Convert(harFileContent);
 
         // Assert
-        Assert.Throws<Exception>(act);
+        Assert.Throws<FileFormatException>(act);
     }
-
 
     [Fact]
     public void EndToEnd()
