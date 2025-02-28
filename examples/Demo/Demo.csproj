@@ -8,6 +8,16 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="PostmanExample_15steps_v2.0.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="PostmanExample_15steps_v2.0.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
       <ProjectReference Include="..\..\src\NBomber.Converter\NBomber.Converter.csproj" />
     </ItemGroup>
 
