@@ -20,6 +20,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <EmbeddedResource Include="PostmanCollectionScenarioTemplate.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </EmbeddedResource>
       <EmbeddedResource Include="HarScenarioTemplate.txt">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </EmbeddedResource>
