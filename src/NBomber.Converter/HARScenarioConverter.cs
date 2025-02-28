@@ -50,7 +50,7 @@ namespace NBomber.Converter
         private static IFluidTemplate GetScenarioTemplate()
         {
             var assembly = Assembly.GetExecutingAssembly();
-            var templateResourceName = "NBomber.Converter.HelloWorldScenarioTemplate.txt";
+            var templateResourceName = "NBomber.Converter.HarScenarioTemplate.txt";
 
             using var stream = assembly.GetManifestResourceStream(templateResourceName);
             using var reader = new StreamReader(stream);
