@@ -11,15 +11,15 @@ public class HelloWorldExample
 
         var scn1 = Scenario.Create("scenario_1", async context =>
         {
-        {% for entry in model.Log.Entries %}
-            var step{{ forloop.index }} = await Step.Run("{{ entry.Request.ActionName }} ({{ forloop.index }})", context, async () =>
+        {% for item in model.Items %}
+            var step{{ forloop.index }} = await Step.Run("{{ item.Name }} ({{ forloop.index }})", context, async () =>
             {
-                var request = Http.CreateRequest("{{ entry.Request.Method }}", "{{ entry.Request.Url }}")
-                    {% for header in entry.Request.Headers -%}
-                    {%- unless header.Name contains ":" -%}
-                    .WithHeader("{{ header.Name }}", "{{ header.Value | replace: '\"', '\\\"' }}")
+                var request = Http.CreateRequest("{{ item.Request.Method }}", "{{ entry.Request.Raw }}")
+                    {% for header in item.Request.Headers -%}
+                    {%- unless header.Key contains ":" -%}
+                    .WithHeader("{{ header.Key }}", "{{ header.Value | replace: '\"', '\\\"' }}")
                     {% if forloop.last -%}
-                        .WithHeader("{{ header.Name }}", "{{ header.Value | replace: '\"', '\\\"' }}");
+                        .WithHeader("{{ header.Key }}", "{{ header.Value | replace: '\"', '\\\"' }}");
                     {% endif -%}
                     {%- endunless -%}                        
                     {% else -%}
@@ -28,13 +28,8 @@ public class HelloWorldExample
                         {% endcomment %}
                     {% endfor -%}
 
-            {% if entry.Request.PostData.Text != null %}
-                {%- if entry.Request.PostData.MimeType contains ";" %}
-                    {%- assign mimeTypeResult = entry.Request.PostData.MimeType | split: ";" -%}
-                    request.WithBody(new StringContent(@"{{ entry.Request.PostData.Text | escape }}", Encoding.UTF8, "{{ mimeTypeResult[0] }}"));
-                {%- else -%}
-                    request.WithBody(new StringContent(@"{{ entry.Request.PostData.Text | escape }}", Encoding.UTF8, "{{ entry.Request.PostData.MimeType }}"));
-                {%- endif %}                
+            {% if item.Request.Body != null %}
+                request.WithBody(new StringContent(@"{{ item.Request.Body.Raw | escape }}", Encoding.UTF8, "{{ item.Request.Body.Options.Raw.Language }}"));               
             {% endif %}            
                 var response = await Http.Send(httpClient, request);
 

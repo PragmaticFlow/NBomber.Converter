@@ -40,6 +40,9 @@ namespace NBomber.Converter.Models
         [JsonPropertyName("method")]
         public string Method { get; set; }
 
+        [JsonPropertyName("header")]
+        public List<Header> Headers { get; set; }
+
         [JsonPropertyName("url")]
         public Url Url { get; set; }
 
@@ -69,6 +72,21 @@ namespace NBomber.Converter.Models
 
         [JsonPropertyName("raw")]
         public string Raw { get; set; }
+
+        [JsonPropertyName("options")]
+        public Options Options { get; set; }
+    }
+
+    public class Options
+    {
+        [JsonPropertyName("raw")]
+        public Raw Raw { get; set; }
+    }
+
+    public class Raw
+    {
+        [JsonPropertyName("language")]
+        public string Language { get; set; }
     }
 
     // Response object
