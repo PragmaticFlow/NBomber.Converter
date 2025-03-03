@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 
 namespace NBomber.Converter.Models
 {
@@ -30,7 +31,7 @@ namespace NBomber.Converter.Models
 
         [JsonPropertyName("request")]
         public Request Request { get; set; }
-
+        
         [JsonPropertyName("response")]
         public List<Response> Responses { get; set; } // Response object
     }
@@ -44,7 +45,7 @@ namespace NBomber.Converter.Models
         public List<Header> Headers { get; set; }
 
         [JsonPropertyName("url")]
-        public Url Url { get; set; }
+        public JsonNode Url { get; set; }
 
         [JsonPropertyName("body")]
         public Body Body { get; set; }
@@ -63,6 +64,9 @@ namespace NBomber.Converter.Models
 
         [JsonPropertyName("path")]
         public List<string> Path { get; set; }
+
+        [JsonPropertyName("query")]
+        public (string, string) Query { get; set; }
     }
 
     public class Body

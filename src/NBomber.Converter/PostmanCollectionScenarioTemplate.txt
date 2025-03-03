@@ -14,7 +14,7 @@ public class HelloWorldExample
         {% for item in model.Items %}
             var step{{ forloop.index }} = await Step.Run("{{ item.Name }} ({{ forloop.index }})", context, async () =>
             {
-                var request = Http.CreateRequest("{{ item.Request.Method }}", "{{ entry.Request.Raw }}")
+                var request = Http.CreateRequest("{{ item.Request.Method }}", "{{ item.Request.PlainUrl }}")
                     {% for header in item.Request.Headers -%}
                     {%- unless header.Key contains ":" -%}
                     .WithHeader("{{ header.Key }}", "{{ header.Value | replace: '\"', '\\\"' }}")

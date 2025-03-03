@@ -2,6 +2,7 @@
 using NBomber.Converter.Models;
 using System.Reflection;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace NBomber.Converter
 {
@@ -23,7 +24,38 @@ namespace NBomber.Converter
             if (postmanCollection == null || postmanCollection.Items == null)
                 throw new FileFormatException("Postman collection file is corrupted.");
 
+            for (int i = 0; i < postmanCollection.Items.Count; i++)
+                postmanCollection.Items[i].Request = GetRequestWithPlainUrl(postmanCollection.Items[i].Request);
+
             return postmanCollection;
+        }
+
+        private static PostmanRequestWithPlainUrl GetRequestWithPlainUrl(Request postmanRequest)
+        {
+            string plainUrl = String.Empty;
+
+            if (postmanRequest.Url is JsonObject urlJsonObject)
+            {
+                if (urlJsonObject.ContainsKey("raw"))
+                    plainUrl = urlJsonObject["raw"].ToString();
+                else
+                    throw new FileFormatException("Postman collection file is corrupted.");
+            }
+            else if (postmanRequest.Url is JsonValue)
+            {
+                plainUrl = postmanRequest.Url.ToString();
+            }
+            else
+                throw new FileFormatException("Postman collection file is corrupted.");
+
+            return new PostmanRequestWithPlainUrl
+            {
+                Method = postmanRequest.Method,
+                Headers = postmanRequest.Headers,
+                Url = postmanRequest.Url,
+                Body = postmanRequest.Body,
+                PlainUrl = plainUrl
+            };
         }
 
         private static IFluidTemplate GetScenarioTemplate()
