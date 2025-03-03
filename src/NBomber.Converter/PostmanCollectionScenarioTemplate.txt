@@ -15,13 +15,14 @@ public class HelloWorldExample
             var step{{ forloop.index }} = await Step.Run("{{ item.Name }} ({{ forloop.index }})", context, async () =>
             {
                 var request = Http.CreateRequest("{{ item.Request.Method }}", "{{ item.Request.PlainUrl }}")
+                    {%- if item.Request.Headers.size == 0 -%};{%- endif -%}
                     {% for header in item.Request.Headers -%}
-                    {%- unless header.Key contains ":" -%}
+                    {% unless header.Key contains ":" -%}
                     .WithHeader("{{ header.Key }}", "{{ header.Value | replace: '\"', '\\\"' }}")
                     {% if forloop.last -%}
                         .WithHeader("{{ header.Key }}", "{{ header.Value | replace: '\"', '\\\"' }}");
                     {% endif -%}
-                    {%- endunless -%}                        
+                    {% endunless -%}                        
                     {% else -%}
                         {% comment %}
                         This request has no headers
@@ -29,7 +30,7 @@ public class HelloWorldExample
                     {% endfor -%}
 
             {% if item.Request.Body != null %}
-                request.WithBody(new StringContent(@"{{ item.Request.Body.Raw | escape }}", Encoding.UTF8, "{{ item.Request.Body.Options.Raw.Language }}"));               
+                request.WithBody(new StringContent(@"{{ item.Request.Body.Raw | escape }}", Encoding.UTF8));               
             {% endif %}            
                 var response = await Http.Send(httpClient, request);
 
