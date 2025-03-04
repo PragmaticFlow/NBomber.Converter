@@ -1,4 +1,4 @@
-﻿namespace NBomber.Converter.Models
+﻿namespace NBomber.Converter.PostmanScenarioConverter.Models
 {
     class PostmanRequestWithPlainUrl : Request
     {

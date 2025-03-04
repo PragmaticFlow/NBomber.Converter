@@ -1,12 +1,13 @@
 ﻿using Fluid;
 using NBomber.Converter.Models;
+using NBomber.Converter.PostmanScenarioConverter.Models;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
-namespace NBomber.Converter
+namespace NBomber.Converter.PostmanScenarioConverter
 {
-    public static class PostmanCollectionScenarioConverter
+    public static class PostmanScenarioConverter
     {
         public static string Convert(string postmanCollectionContent)
         {
@@ -32,7 +33,7 @@ namespace NBomber.Converter
 
         private static PostmanRequestWithPlainUrl GetRequestWithPlainUrl(Request postmanRequest)
         {
-            string plainUrl = String.Empty;
+            string plainUrl = string.Empty;
 
             if (postmanRequest.Url is JsonObject urlJsonObject)
             {
@@ -61,7 +62,7 @@ namespace NBomber.Converter
         private static IFluidTemplate GetScenarioTemplate()
         {
             var assembly = Assembly.GetExecutingAssembly();
-            var templateResourceName = "NBomber.Converter.PostmanCollectionScenarioTemplate.txt";
+            var templateResourceName = "NBomber.Converter.PostmanScenarioConverter.PostmanScenarioTemplate.txt";
 
             using var stream = assembly.GetManifestResourceStream(templateResourceName);
             using var reader = new StreamReader(stream);
@@ -73,7 +74,7 @@ namespace NBomber.Converter
 
         private static string RenderScenario(IFluidTemplate template, PostmanCollection postmanCollection)
         {
-            TemplateOptions options = new TemplateOptions();
+            var options = new TemplateOptions();
             options.MemberAccessStrategy = new UnsafeMemberAccessStrategy();
             var templateContext = new TemplateContext(new { model = postmanCollection }, options, true);
             try

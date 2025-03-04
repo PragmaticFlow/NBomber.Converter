@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
-namespace NBomber.Converter.Models
+namespace NBomber.Converter.PostmanScenarioConverter.Models
 {
     public class PostmanCollection
     {

@@ -1,6 +1,6 @@
 ﻿using CommandLine;
 using NBomber.Converter.Tool;
-using NBomber.Converter;
+using NBomber.Converter.HARScenarioConverter;
 
 Parser.Default.ParseArguments<Options>(args)
     .WithParsed<Options>(o =>

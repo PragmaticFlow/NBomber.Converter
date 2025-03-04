@@ -1,9 +1,10 @@
 ﻿using Fluid;
 using NBomber.Converter.Models;
+using NBomber.Converter.HARScenarioConverter.Models;
 using System.Reflection;
 using System.Text.Json;
 
-namespace NBomber.Converter
+namespace NBomber.Converter.HARScenarioConverter
 {
     public static class HARScenarioConverter
     {
@@ -50,7 +51,7 @@ namespace NBomber.Converter
         private static IFluidTemplate GetScenarioTemplate()
         {
             var assembly = Assembly.GetExecutingAssembly();
-            var templateResourceName = "NBomber.Converter.HarScenarioTemplate.txt";
+            var templateResourceName = "NBomber.Converter.HARScenarioConverter.HarScenarioTemplate.txt";
 
             using var stream = assembly.GetManifestResourceStream(templateResourceName);
             using var reader = new StreamReader(stream);

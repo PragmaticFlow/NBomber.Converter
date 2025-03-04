@@ -1,7 +1,7 @@
 using Microsoft.CodeAnalysis;
 using NBomber.Converter.Models;
 
-namespace NBomber.Converter.Tests;
+namespace NBomber.Converter.HARScenarioConverter.Tests;
 
 public class HARCoverterTests
 {

@@ -1,4 +1,4 @@
-﻿namespace NBomber.Converter.Models
+﻿namespace NBomber.Converter.HARScenarioConverter.Models
 {
     public class HARRequestWithActionName : HARRequest
     {
