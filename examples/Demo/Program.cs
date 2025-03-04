@@ -1,10 +1,10 @@
 ﻿using NBomber.Converter.PostmanScenarioConverter;
 using NBomber.Converter.HARScenarioConverter;
 
-var harFileContent = File.ReadAllText("HarExample_15steps.har");
-var harScenario = HARScenarioConverter.Convert(harFileContent);
+//var harFileContent = File.ReadAllText("HarExample_15steps.har");
+//var harScenario = HARScenarioConverter.Convert(harFileContent);
 
-File.WriteAllText("HelloWorldHarScenario.cs", harScenario);
+//File.WriteAllText("HelloWorldHarScenario.cs", harScenario);
 
 var postmanCollectionContent = File.ReadAllText("PostmanExample_15steps_v2.0.json");
 var postmanScenario = PostmanScenarioConverter.Convert(postmanCollectionContent);
