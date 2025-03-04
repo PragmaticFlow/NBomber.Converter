@@ -17,7 +17,7 @@ public class HelloWorldExample
                 var request = Http.CreateRequest("{{ item.Request.Method }}", "{{ item.Request.PlainUrl }}")
                     {%- if item.Request.Headers.size == 0 -%};{%- endif -%}
                     {% for header in item.Request.Headers -%}
-                    {% unless header.Key contains ":" -%}
+                    {% unless header.Key contains ":" or header.Key == "content-length" -%}
                     .WithHeader("{{ header.Key }}", "{{ header.Value | replace: '\"', '\\\"' }}")
                     {% if forloop.last -%}
                         .WithHeader("{{ header.Key }}", "{{ header.Value | replace: '\"', '\\\"' }}");
