@@ -30,7 +30,7 @@ public class HelloWorldExample
                     {% endfor -%}
 
             {% if item.Request.Body != null %}
-                request.WithBody(new StringContent(@"{{ item.Request.Body.Raw | escape }}", Encoding.UTF8));               
+                request.WithBody(new StringContent("""{{ item.Request.Body.Raw | replace: "\r\n", "" }}""", Encoding.UTF8));               
             {% endif %}            
                 var response = await Http.Send(httpClient, request);
 
