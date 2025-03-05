@@ -3,7 +3,7 @@ using NBomber.Http.CSharp;
 using System.Text;
 using System.Net.Http;
 
-public class HelloWorldExample
+public class HelloWorldPostmanExample
 {
     public void Run()
     {
@@ -30,7 +30,11 @@ public class HelloWorldExample
                     {% endfor -%}
 
             {% if item.Request.Body != null %}
-                request.WithBody(new StringContent("""{{ item.Request.Body.Raw | replace: "\r\n", "" }}""", Encoding.UTF8, "{{ item.Request.ContentType }}"));               
+                {% if item.Request.Body.Raw == null -%}
+                    request.WithBody(new StringContent("", Encoding.UTF8, "{{ item.Request.ContentType }}"));
+                {% else -%}
+                    request.WithBody(new StringContent("""{{ item.Request.Body.Raw | replace: "\r\n", "" }}""", Encoding.UTF8, "{{ item.Request.ContentType }}"));   
+                {% endif -%}
             {% endif %}            
                 var response = await Http.Send(httpClient, request);
 

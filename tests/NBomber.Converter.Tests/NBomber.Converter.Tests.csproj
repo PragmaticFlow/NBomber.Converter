@@ -28,16 +28,25 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Resources\GeneratedScenarioForComparison.cs">
+      <Compile Update="Resources\GeneratedHarScenarioForComparison.cs">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Compile>
+      <Compile Update="Resources\GeneratedPostmanScenarioForComparison.cs">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Compile>
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="CorruptedHar_4steps.har">
+      <None Update="Resources\CorruptedHar_4steps.har">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
-      <None Update="HarExample_4steps.har">
+      <None Update="Resources\CorruptedPostman_4steps.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Resources\HarExample_4steps.har">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Resources\PostmanExample_4steps.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>
