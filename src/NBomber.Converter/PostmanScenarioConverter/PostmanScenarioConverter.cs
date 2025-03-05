@@ -1,6 +1,7 @@
 ﻿using Fluid;
 using NBomber.Converter.Models;
 using NBomber.Converter.PostmanScenarioConverter.Models;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Nodes;
@@ -26,10 +27,10 @@ namespace NBomber.Converter.PostmanScenarioConverter
                 throw new FileFormatException("Postman collection file is corrupted.");
 
             for (int i = 0; i < postmanCollection.Items.Count; i++)
-                postmanCollection.Items[i].Request = GetRequestWithPlainUrl(postmanCollection.Items[i].Request);
+                postmanCollection.Items[i].Request = GetRequestWithPlainUrl(postmanCollection.Items[i].Request);             
 
             return postmanCollection;
-        }
+        } 
 
         private static PostmanRequestWithPlainUrl GetRequestWithPlainUrl(Request postmanRequest)
         {
@@ -49,14 +50,27 @@ namespace NBomber.Converter.PostmanScenarioConverter
             else
                 throw new FileFormatException("Postman collection file is corrupted.");
 
+            var contentType = postmanRequest.Body == null ? String.Empty : GetContentType(postmanRequest.Body);
+
             return new PostmanRequestWithPlainUrl
             {
                 Method = postmanRequest.Method,
                 Headers = postmanRequest.Headers,
                 Url = postmanRequest.Url,
                 Body = postmanRequest.Body,
-                PlainUrl = plainUrl
+                PlainUrl = plainUrl,
+                ContentType = contentType
             };
+        }
+
+        private static string GetContentType(Body requestBody)
+        {
+            if (requestBody.Mode == "raw")
+                return "application/json";
+            else if (requestBody.Mode == "formdata")
+                return "multipart/form-data";
+            else
+                return requestBody.Mode;
         }
 
         private static IFluidTemplate GetScenarioTemplate()

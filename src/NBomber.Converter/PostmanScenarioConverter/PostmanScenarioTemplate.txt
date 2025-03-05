@@ -18,9 +18,9 @@ public class HelloWorldExample
                     {%- if item.Request.Headers.size == 0 -%};{%- endif -%}
                     {% for header in item.Request.Headers -%}
                     {% unless header.Key contains ":" or header.Key == "content-length" -%}
-                    .WithHeader("{{ header.Key }}", "{{ header.Value | replace: '\"', '\\\"' }}")
+                    .WithHeader("{{ header.Item1 }}", "{{ header.Item2 | replace: '\"', '\\\"' }}")
                     {% if forloop.last -%}
-                        .WithHeader("{{ header.Key }}", "{{ header.Value | replace: '\"', '\\\"' }}");
+                        .WithHeader("{{ header.Item1 }}", "{{ header.Item2 | replace: '\"', '\\\"' }}");
                     {% endif -%}
                     {% endunless -%}                        
                     {% else -%}
@@ -30,7 +30,7 @@ public class HelloWorldExample
                     {% endfor -%}
 
             {% if item.Request.Body != null %}
-                request.WithBody(new StringContent("""{{ item.Request.Body.Raw | replace: "\r\n", "" }}""", Encoding.UTF8));               
+                request.WithBody(new StringContent("""{{ item.Request.Body.Raw | replace: "\r\n", "" }}""", Encoding.UTF8, "{{ item.Request.ContentType }}"));               
             {% endif %}            
                 var response = await Http.Send(httpClient, request);
 

@@ -42,7 +42,7 @@ namespace NBomber.Converter.PostmanScenarioConverter.Models
         public string Method { get; set; }
 
         [JsonPropertyName("header")]
-        public List<Header> Headers { get; set; }
+        public List<(string, string)> Headers { get; set; }
 
         [JsonPropertyName("url")]
         public JsonNode Url { get; set; }
@@ -106,15 +106,6 @@ namespace NBomber.Converter.PostmanScenarioConverter.Models
         public string Body { get; set; }
 
         [JsonPropertyName("headers")]
-        public List<Header> Headers { get; set; }
-    }
-
-    public class Header
-    {
-        [JsonPropertyName("key")]
-        public string Key { get; set; }
-
-        [JsonPropertyName("value")]
-        public string Value { get; set; }
+        public List<(string, string)> Headers { get; set; }
     }
 }

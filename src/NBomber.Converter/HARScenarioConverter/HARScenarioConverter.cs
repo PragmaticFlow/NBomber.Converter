@@ -63,7 +63,7 @@ namespace NBomber.Converter.HARScenarioConverter
 
         private static string RenderScenario(IFluidTemplate template, HARFile harFile)
         {
-            TemplateOptions options = new TemplateOptions();
+            var options = new TemplateOptions();
             options.MemberAccessStrategy = new UnsafeMemberAccessStrategy();
             var templateContext = new TemplateContext(new { model = harFile }, options, true);
             try
