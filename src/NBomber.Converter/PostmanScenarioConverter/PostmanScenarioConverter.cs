@@ -65,12 +65,12 @@ namespace NBomber.Converter.PostmanScenarioConverter
 
         private static string GetContentType(Body requestBody)
         {
-            if (requestBody.Mode == "raw")
-                return "application/json";
-            else if (requestBody.Mode == "formdata")
-                return "multipart/form-data";
-            else
-                return requestBody.Mode;
+            if (requestBody.Mode == "raw") return "application/json";
+            else if (requestBody.Mode == "formdata") return "multipart/form-data";
+            else if (requestBody.Mode == "urlencoded") return "application/x-www-form-urlencoded";
+            else if (requestBody.Mode == "file") return "application/octet-stream"; // only binary files
+            else if (requestBody.Mode == "graphql") return "application/graphql\r\n";
+            else return requestBody.Mode;
         }
 
         private static IFluidTemplate GetScenarioTemplate()
