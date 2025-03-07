@@ -1,11 +1,10 @@
 ﻿using CommandLine;
-using NBomber.Converter.Tool;
 using NBomber.Converter.HARScenarioConverter;
 using NBomber.Converter.PostmanScenarioConverter;
-using System.Reflection;
+using NBomber.Converter.Tool;
 
-var assembly = Assembly.GetExecutingAssembly();
-Console.WriteLine($"NBomber Converter toolversion: {assembly.GetName().Version}");
+var version = typeof(HARScenarioConverter).Assembly.GetName().Version;
+Console.WriteLine($"NBomber Converter version: {version.Major}.{version.Minor}.{version.Build}");
 
 Parser.Default.ParseArguments<Options>(args)
     .WithParsed<Options>(o =>
