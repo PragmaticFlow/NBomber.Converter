@@ -2,9 +2,18 @@
 using NBomber.Converter.HARScenarioConverter;
 using NBomber.Converter.PostmanScenarioConverter;
 using NBomber.Converter.Tool;
+using Serilog;
+using Serilog.Sinks.SystemConsole.Themes;
+
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console(
+        outputTemplate: "{Timestamp:HH:mm:ss} [{Level:u3}] {Message:lj}{NewLine}{Exception}",
+        theme: AnsiConsoleTheme.Sixteen
+    )
+    .CreateLogger();
 
 var version = typeof(HARScenarioConverter).Assembly.GetName().Version;
-Console.WriteLine($"NBomber Converter version: {version.Major}.{version.Minor}.{version.Build}");
+Log.Information("{0} version: {1}.{2}.{3}", "NBomber Converter", version.Major, version.Minor, version.Build);
 
 Parser.Default.ParseArguments<Options>(args)
     .WithParsed<Options>(o =>
@@ -16,35 +25,36 @@ Parser.Default.ParseArguments<Options>(args)
         switch (fileType)
         {
             case InputFileType.HAR:
-                Console.WriteLine($"Converting {o.InputFilePath}");
+                Log.Information($"Converting {o.InputFilePath}");
 
                 try
                 {
                     var harScenario = HARScenarioConverter.Convert(content);
                     File.WriteAllText(o.OutputFilePath, harScenario);
-                    Console.WriteLine($"Wrote NBomber scenario to {o.OutputFilePath}");
+                    Log.Information($"Wrote NBomber scenario to {o.OutputFilePath}");
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    Log.Error(ex.Message);
                 }               
                 break;
             case InputFileType.PostmanCollection:
-                Console.WriteLine($"Converting {o.InputFilePath}");
+                Log.Information($"Converting {o.InputFilePath}");
 
                 try
                 {
                     var postmanScenario = PostmanScenarioConverter.Convert(content);
                     File.WriteAllText(o.OutputFilePath, postmanScenario);
-                    Console.WriteLine($"Wrote NBomber scenario to {o.OutputFilePath}");
+                    Log.Information($"Wrote NBomber scenario to {o.OutputFilePath}");
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    Log.Error(ex.Message);
                 }
                 break;
             default:
-                Console.WriteLine("Unknown file type");
+                Log.Error("Unknown file type");
                 break;
         }
     });
+Log.CloseAndFlush();

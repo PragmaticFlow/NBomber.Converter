@@ -1,4 +1,6 @@
-﻿namespace NBomber.Converter.Tool
+﻿using Serilog;
+
+namespace NBomber.Converter.Tool
 {
     public static class ToolHelper
     {
@@ -8,12 +10,13 @@
 
             if (fileExtension == ".json")
             {
-                Console.WriteLine("Automatically detected file type - Postman collection");
+
+                Log.Information("Automatically detected file type - Postman collection");
                 return InputFileType.PostmanCollection;
             }
             else
             {
-                Console.WriteLine("Automatically detected file type - HAR");
+                Log.Information("Automatically detected file type - HAR");
                 return InputFileType.HAR;
             }
         }
