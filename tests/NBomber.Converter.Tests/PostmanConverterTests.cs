@@ -1,20 +1,20 @@
 using Microsoft.CodeAnalysis;
 using NBomber.Converter.Models;
 
-namespace NBomber.Converter.HARScenarioConverter.Tests;
+namespace NBomber.Converter.PostmanScenarioConverter.Tests;
 
-public class PostmanCoverterTests
+public class PostmanConverterTests
 {
     [Fact]
-    public void Convert_Should_Convert_HARFile_To_NBomberScenario()
+    public void Convert_Should_Convert_PostmanCollection_To_NBomberScenario()
     {
         // Arrange
-        var scenarioForComparison = File.ReadAllText(@"Resources/GeneratedHarScenarioForComparison.cs");
+        var scenarioForComparison = File.ReadAllText(@"Resources/GeneratedPostmanScenarioForComparison.cs");
         scenarioForComparison = ConverterTestHelper.RemoveSpacesAndBackslashSymbols(scenarioForComparison);
-        var harFileContent = File.ReadAllText(@"Resources/HarExample_4steps.har");
+        var postmanCollectionContent = File.ReadAllText(@"Resources/PostmanExample_4steps.json");
 
         // Act
-        var generatedScenario = HARScenarioConverter.Convert(harFileContent);
+        var generatedScenario = PostmanScenarioConverter.Convert(postmanCollectionContent);
         generatedScenario = ConverterTestHelper.RemoveSpacesAndBackslashSymbols(generatedScenario);
 
         // Assert
@@ -22,13 +22,13 @@ public class PostmanCoverterTests
     }
 
     [Fact]
-    public void Convert_Corrupted_HAR_Should_Throw_NullReferenceException()
+    public void Convert_Corrupted_PostmanCollection_Should_Throw_NullReferenceException()
     {
         // Arrange
-        var harFileContent = File.ReadAllText(@"Resources/CorruptedHar_4steps.har");
+        var postmanCollectionContent = File.ReadAllText(@"Resources/CorruptedPostman_4steps.json");
 
         // Act
-        Action act = () => HARScenarioConverter.Convert(harFileContent);
+        Action act = () => PostmanScenarioConverter.Convert(postmanCollectionContent);
 
         // Assert
         Assert.Throws<FileFormatException>(act);
@@ -38,8 +38,8 @@ public class PostmanCoverterTests
     public void EndToEnd()
     {
         // Arrange
-        var harFileContent = File.ReadAllText(@"Resources/HarExample_4steps.har");
-        var generatedScenario = HARScenarioConverter.Convert(harFileContent);
+        var postmanCollectionContent = File.ReadAllText(@"Resources/PostmanExample_4steps.json");
+        var generatedScenario = PostmanScenarioConverter.Convert(postmanCollectionContent);
 
         ConverterTestHelper.DeleteReportsIfExists();        
 
