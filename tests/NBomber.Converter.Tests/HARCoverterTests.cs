@@ -1,9 +1,9 @@
-using Microsoft.CodeAnalysis;
-using NBomber.Converter.Models;
+using NBomber.Converter.Contracts;
+using NBomber.Converter.HAR;
 
-namespace NBomber.Converter.HARScenarioConverter.Tests;
+namespace NBomber.Converter.Tests;
 
-public class PostmanCoverterTests
+public class HARCoverterTests
 {
     [Fact]
     public void Convert_Should_Convert_HARFile_To_NBomberScenario()

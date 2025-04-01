@@ -1,8 +1,8 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using System.Reflection;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
-using System.Reflection;
 
-namespace NBomber.Converter
+namespace NBomber.Converter.Tests
 {
     public static class ConverterTestHelper
     {

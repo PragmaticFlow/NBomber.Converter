@@ -20,10 +20,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <EmbeddedResource Include="PostmanScenarioConverter\PostmanScenarioTemplate.txt">
+      <EmbeddedResource Include="Postman\PostmanScenarioTemplate.txt">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </EmbeddedResource>
-      <EmbeddedResource Include="HARScenarioConverter\HarScenarioTemplate.txt">
+      <EmbeddedResource Include="HAR\HarScenarioTemplate.txt">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </EmbeddedResource>
     </ItemGroup>

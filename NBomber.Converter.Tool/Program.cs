@@ -1,9 +1,9 @@
 ﻿using CommandLine;
-using NBomber.Converter.HARScenarioConverter;
-using NBomber.Converter.PostmanScenarioConverter;
-using NBomber.Converter.Tool;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
+using NBomber.Converter.HAR;
+using NBomber.Converter.Postman;
+using NBomber.Converter.Tool;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console(
@@ -15,12 +15,11 @@ Log.Logger = new LoggerConfiguration()
 var version = typeof(HARScenarioConverter).Assembly.GetName().Version;
 Log.Information("{0} version: {1}.{2}.{3}", "NBomber Converter", version.Major, version.Minor, version.Build);
 
-Parser.Default.ParseArguments<Options>(args)
-    .WithParsed<Options>(o =>
+Parser.Default.ParseArguments<CliArgs>(args)
+    .WithParsed<CliArgs>(o =>
     {
         var content = File.ReadAllText(o.InputFilePath);
-        var fileType = o.InputFileType.HasValue ? 
-            o.InputFileType : ToolHelper.DetermineFileType(o.InputFilePath);
+        var fileType = o.InputFileType.HasValue ? o.InputFileType : DetermineFileType(o.InputFilePath);
 
         switch (fileType)
         {
@@ -38,6 +37,7 @@ Parser.Default.ParseArguments<Options>(args)
                     Log.Error(ex.Message);
                 }               
                 break;
+            
             case InputFileType.PostmanCollection:
                 Log.Information($"Converting {o.InputFilePath}");
 
@@ -52,9 +52,27 @@ Parser.Default.ParseArguments<Options>(args)
                     Log.Error(ex.Message);
                 }
                 break;
+            
             default:
                 Log.Error("Unknown file type");
                 break;
         }
     });
+
 Log.CloseAndFlush();
+
+static InputFileType DetermineFileType(string filePath)
+{
+    var fileExtension = Path.GetExtension(filePath).ToLower();
+
+    if (fileExtension == ".json")
+    {
+        Log.Information("Automatically detected file type - Postman collection");
+        return InputFileType.PostmanCollection;
+    }
+    else
+    {
+        Log.Information("Automatically detected file type - HAR");
+        return InputFileType.HAR;
+    }
+}

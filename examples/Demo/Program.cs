@@ -1,5 +1,5 @@
-﻿using NBomber.Converter.PostmanScenarioConverter;
-using NBomber.Converter.HARScenarioConverter;
+﻿using NBomber.Converter.HAR;
+using NBomber.Converter.Postman;
 
 var harFileContent = File.ReadAllText("HarExample_4steps.har");
 var harScenario = HARScenarioConverter.Convert(harFileContent);
