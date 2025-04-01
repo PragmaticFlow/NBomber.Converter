@@ -28,12 +28,12 @@ namespace NBomber.Converter.Tests
 
             // Get the current app domain assemblies (this will include the core .NET libraries)
             var references = AppDomain.CurrentDomain.GetAssemblies()
-                                .Where(a => !a.IsDynamic)
-                                .Select(a => a.Location)
-                                .Where(l => l != null)
-                                .Distinct()
-                                .Select(r => MetadataReference.CreateFromFile(r))
-                                .ToList();
+                .Where(a => !a.IsDynamic)
+                .Select(a => a.Location)
+                .Where(l => l != null)
+                .Distinct()
+                .Select(r => MetadataReference.CreateFromFile(r))
+                .ToList();
 
             foreach (var assembly in assemblies)
                 references.Add(MetadataReference.CreateFromFile(assembly));
