@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\NBomber.Converter\NBomber.Converter.csproj" />
+    <ProjectReference Include="..\NBomber.Converter\NBomber.Converter.csproj" />
   </ItemGroup>
 
 </Project>

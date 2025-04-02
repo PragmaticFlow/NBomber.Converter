@@ -1,9 +1,10 @@
-using Microsoft.CodeAnalysis;
-using NBomber.Converter.Models;
+using NBomber.Converter.Contracts;
+using NBomber.Converter.HAR;
 
-namespace NBomber.Converter.HARScenarioConverter.Tests;
+namespace NBomber.Converter.Tests;
 
-public class PostmanCoverterTests
+[CollectionDefinition("NonParallelTests", DisableParallelization = true)]
+public class HARCoverterTests
 {
     [Fact]
     public void Convert_Should_Convert_HARFile_To_NBomberScenario()
@@ -55,9 +56,10 @@ public class PostmanCoverterTests
 
         var code = generatedScenario + invokePart;
 
-        var assemblies = new string[]
+        var assemblies = new[]
         {
             "NBomber.dll",
+            "NBomber.Contracts.dll",
             "NBomber.Http.dll"
         };
 

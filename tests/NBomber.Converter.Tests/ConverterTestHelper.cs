@@ -1,8 +1,8 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using System.Reflection;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
-using System.Reflection;
 
-namespace NBomber.Converter
+namespace NBomber.Converter.Tests
 {
     public static class ConverterTestHelper
     {
@@ -28,12 +28,12 @@ namespace NBomber.Converter
 
             // Get the current app domain assemblies (this will include the core .NET libraries)
             var references = AppDomain.CurrentDomain.GetAssemblies()
-                                .Where(a => !a.IsDynamic)
-                                .Select(a => a.Location)
-                                .Where(l => l != null)
-                                .Distinct()
-                                .Select(r => MetadataReference.CreateFromFile(r))
-                                .ToList();
+                .Where(a => !a.IsDynamic)
+                .Select(a => a.Location)
+                .Where(l => l != null)
+                .Distinct()
+                .Select(r => MetadataReference.CreateFromFile(r))
+                .ToList();
 
             foreach (var assembly in assemblies)
                 references.Add(MetadataReference.CreateFromFile(assembly));

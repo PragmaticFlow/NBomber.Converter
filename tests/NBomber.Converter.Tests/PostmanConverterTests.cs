@@ -1,8 +1,8 @@
-using Microsoft.CodeAnalysis;
-using NBomber.Converter.Models;
+using NBomber.Converter.Contracts;
 
-namespace NBomber.Converter.PostmanScenarioConverter.Tests;
+namespace NBomber.Converter.Tests;
 
+[CollectionDefinition("NonParallelTests", DisableParallelization = true)]
 public class PostmanConverterTests
 {
     [Fact]
@@ -14,7 +14,7 @@ public class PostmanConverterTests
         var postmanCollectionContent = File.ReadAllText(@"Resources/PostmanExample_4steps.json");
 
         // Act
-        var generatedScenario = PostmanScenarioConverter.Convert(postmanCollectionContent);
+        var generatedScenario = Postman.PostmanScenarioConverter.Convert(postmanCollectionContent);
         generatedScenario = ConverterTestHelper.RemoveSpacesAndBackslashSymbols(generatedScenario);
 
         // Assert
@@ -28,7 +28,7 @@ public class PostmanConverterTests
         var postmanCollectionContent = File.ReadAllText(@"Resources/CorruptedPostman_4steps.json");
 
         // Act
-        Action act = () => PostmanScenarioConverter.Convert(postmanCollectionContent);
+        Action act = () => Postman.PostmanScenarioConverter.Convert(postmanCollectionContent);
 
         // Assert
         Assert.Throws<FileFormatException>(act);
@@ -39,7 +39,7 @@ public class PostmanConverterTests
     {
         // Arrange
         var postmanCollectionContent = File.ReadAllText(@"Resources/PostmanExample_4steps.json");
-        var generatedScenario = PostmanScenarioConverter.Convert(postmanCollectionContent);
+        var generatedScenario = Postman.PostmanScenarioConverter.Convert(postmanCollectionContent);
 
         ConverterTestHelper.DeleteReportsIfExists();        
 
@@ -58,6 +58,7 @@ public class PostmanConverterTests
         var assemblies = new string[]
         {
             "NBomber.dll",
+            "NBomber.Contracts.dll",
             "NBomber.Http.dll"
         };
 
