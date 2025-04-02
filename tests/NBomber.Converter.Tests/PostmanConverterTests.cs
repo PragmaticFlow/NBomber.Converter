@@ -2,6 +2,7 @@ using NBomber.Converter.Contracts;
 
 namespace NBomber.Converter.Tests;
 
+[CollectionDefinition("NonParallelTests", DisableParallelization = true)]
 public class PostmanConverterTests
 {
     [Fact]

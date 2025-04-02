@@ -3,6 +3,7 @@ using NBomber.Converter.HAR;
 
 namespace NBomber.Converter.Tests;
 
+[CollectionDefinition("NonParallelTests", DisableParallelization = true)]
 public class HARCoverterTests
 {
     [Fact]
@@ -55,9 +56,10 @@ public class HARCoverterTests
 
         var code = generatedScenario + invokePart;
 
-        var assemblies = new string[]
+        var assemblies = new[]
         {
             "NBomber.dll",
+            // "NBomber.Contracts.dll",
             "NBomber.Http.dll"
         };
 
