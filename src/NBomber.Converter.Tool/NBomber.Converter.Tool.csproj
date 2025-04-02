@@ -1,13 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Version>0.1.0-beta.0</Version>
-    <OutputType>Exe</OutputType>
+    <LangVersion>12.0</LangVersion>
     <TargetFramework>net8.0</TargetFramework>
+    <PackAsTool>true</PackAsTool>
+    <OutputType>Exe</OutputType>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <PackAsTool>true</PackAsTool>
-    <ToolCommandName>nb-converter</ToolCommandName>
+    <Company>NBomber</Company>
+    <Version>0.1.0-beta.1</Version>
+    <Copyright>NBomber@2025</Copyright>    
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageIcon>nbomber_icon.png</PackageIcon>
+    <RepositoryUrl>https://github.com/PragmaticFlow/NBomber.Converter</RepositoryUrl>
+    <PackageTags>load-testing, performance-testing, integration-testing, fsharp</PackageTags>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Description>The CLI tool for using NBomber.Converter</Description>    
+    <Title>NBomber.Converter.Tool</Title>
+    <ToolCommandName>nb-converter</ToolCommandName>    
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,4 +32,9 @@
     <ProjectReference Include="..\NBomber.Converter\NBomber.Converter.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="../../LICENSE" Pack="true" Visible="false" PackagePath="" />
+    <None Include="../../assets/nbomber_icon.png" Pack="true" Visible="false" PackagePath="" />
+  </ItemGroup>
+  
 </Project>
