@@ -58,6 +58,7 @@ public class PostmanConverterTests
         var assemblies = new string[]
         {
             "NBomber.dll",
+            "NBomber.Contracts.dll",
             "NBomber.Http.dll"
         };
 

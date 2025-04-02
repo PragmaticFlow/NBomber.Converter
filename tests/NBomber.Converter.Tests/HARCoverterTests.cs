@@ -59,7 +59,7 @@ public class HARCoverterTests
         var assemblies = new[]
         {
             "NBomber.dll",
-            // "NBomber.Contracts.dll",
+            "NBomber.Contracts.dll",
             "NBomber.Http.dll"
         };
 
