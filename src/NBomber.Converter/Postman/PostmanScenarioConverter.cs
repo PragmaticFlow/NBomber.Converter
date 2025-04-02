@@ -25,15 +25,15 @@ public static class PostmanScenarioConverter
         if (postmanCollection == null || postmanCollection.Items == null)
             throw new FileFormatException("Postman collection file is corrupted.");
 
-        for (int i = 0; i < postmanCollection.Items.Count; i++)
-            postmanCollection.Items[i].Request = GetRequestWithPlainUrl(postmanCollection.Items[i].Request);             
+        foreach (var item in postmanCollection.Items)
+            item.Request = GetRequestWithPlainUrl(item.Request);
 
         return postmanCollection;
     } 
 
     private static PostmanRequestWithPlainUrl GetRequestWithPlainUrl(Request postmanRequest)
     {
-        string plainUrl = string.Empty;
+        var plainUrl = string.Empty;
 
         if (postmanRequest.Url is JsonObject urlJsonObject)
         {
@@ -64,12 +64,15 @@ public static class PostmanScenarioConverter
 
     private static string GetContentType(Body requestBody)
     {
-        if (requestBody.Mode == "raw") return "application/json";
-        else if (requestBody.Mode == "formdata") return "multipart/form-data";
-        else if (requestBody.Mode == "urlencoded") return "application/x-www-form-urlencoded";
-        else if (requestBody.Mode == "file") return "application/octet-stream"; // only binary files
-        else if (requestBody.Mode == "graphql") return "application/graphql\r\n";
-        else return requestBody.Mode;
+        return requestBody.Mode switch
+        {
+            "raw" => "application/json",
+            "formdata" => "multipart/form-data",
+            "urlencoded" => "application/x-www-form-urlencoded",
+            "file" => "application/octet-stream",
+            "graphql" => "application/graphql\r\n",
+            _ => requestBody.Mode
+        };
     }
 
     private static IFluidTemplate GetScenarioTemplate()
@@ -87,9 +90,12 @@ public static class PostmanScenarioConverter
 
     private static string RenderScenario(IFluidTemplate template, PostmanCollection postmanCollection)
     {
-        var options = new TemplateOptions();
-        options.MemberAccessStrategy = new UnsafeMemberAccessStrategy();
-        var templateContext = new TemplateContext(new { model = postmanCollection }, options, true);
+        var options = new TemplateOptions
+        {
+            MemberAccessStrategy = new UnsafeMemberAccessStrategy()
+        };
+        var templateContext = new TemplateContext(new { model = postmanCollection }, options, allowModelMembers: true);
+        
         try
         {
             return template.Render(templateContext);

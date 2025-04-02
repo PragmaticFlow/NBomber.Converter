@@ -24,8 +24,8 @@ public static class HARScenarioConverter
         if (har is null || har.Log.Entries == null)
             throw new FileFormatException("HAR file is corrupted.");
 
-        for (int i = 0; i < har.Log.Entries.Count; i++)
-            har.Log.Entries[i].Request = GetHARRequestWithActionName(har.Log.Entries[i].Request);
+        foreach (var item in har.Log.Entries)
+            item.Request = GetHARRequestWithActionName(item.Request);
 
         return har;
     }
