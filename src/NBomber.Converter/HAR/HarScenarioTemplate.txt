@@ -43,7 +43,7 @@ public class HelloWorldExample
         {% endfor %} 
             return Response.Ok();
         })
-            .WithRestartIterationOnFail(shouldRestart: false);
+        .WithRestartIterationOnFail(shouldRestart: false);
 
         NBomberRunner
             .RegisterScenarios(scn1)
