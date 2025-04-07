@@ -33,7 +33,7 @@ public class Item
     public Request Request { get; set; }
         
     [JsonPropertyName("response")]
-    public List<Response> Responses { get; set; } // Response object
+    public List<Response> Responses { get; set; }
 }
 
 public class Request
@@ -42,13 +42,25 @@ public class Request
     public string Method { get; set; }
 
     [JsonPropertyName("header")]
-    public List<(string, string)> Headers { get; set; }
+    public List<Header> Headers { get; set; }
 
     [JsonPropertyName("url")]
     public JsonNode Url { get; set; }
 
     [JsonPropertyName("body")]
     public Body Body { get; set; }
+}
+
+public class Header
+{
+    [JsonPropertyName("key")]
+    public string Key { get; set; }
+
+    [JsonPropertyName("value")]
+    public string Value { get; set; }
+
+    [JsonPropertyName("type")]
+    public string Type { get; set; }
 }
 
 public class Url

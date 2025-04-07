@@ -25,7 +25,18 @@
 					"type": "noauth"
 				},
 				"method": "PUT",
-				"header": [],
+				"header": [
+					{
+						"key": "Key1",
+						"value": "Value1",
+						"type": "text"
+					},
+					{
+						"key": "Key2",
+						"value": "Value2",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
@@ -65,7 +76,18 @@
 			"name": "LIST USERS",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Key1",
+						"value": "Value1",
+						"type": "text"
+					},
+					{
+						"key": "Key2",
+						"value": "Value2",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "https://reqres.in/api/users?page=2",
 					"protocol": "https",
@@ -94,7 +116,18 @@
 					"type": "noauth"
 				},
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Key1",
+						"value": "Value1",
+						"type": "text"
+					},
+					{
+						"key": "Key2",
+						"value": "Value2",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"leader\"\r\n}",
@@ -115,7 +148,18 @@
 					"type": "noauth"
 				},
 				"method": "DELETE",
-				"header": [],
+				"header": [
+					{
+						"key": "Key1",
+						"value": "Value1",
+						"type": "text"
+					},
+					{
+						"key": "Key2",
+						"value": "Value2",
+						"type": "text"
+					}
+				],
 				"url": "https://reqres.in/api/users/2"
 			},
 			"response": []
