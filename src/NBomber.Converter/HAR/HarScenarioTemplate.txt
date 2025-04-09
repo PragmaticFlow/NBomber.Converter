@@ -28,9 +28,9 @@ public class HelloWorldExample
 
             {% if entry.Request.PostData.Text != null %}
                 {%- if entry.Request.PostData.MimeType contains ";" %}
-                    {%- assign mimeTypeResult = entry.Request.PostData.MimeType | split: ";" -%}
+                {% assign mimeTypeResult = entry.Request.PostData.MimeType | split: ";" -%}
                 request.WithBody(new StringContent("""{{ entry.Request.PostData.Text | replace: "\r\n", "" }}""", Encoding.UTF8, "{{ mimeTypeResult[0] }}"));
-                {% else %}
+                {%- else %}
                 request.WithBody(new StringContent("""{{ entry.Request.PostData.Text | replace: "\r\n", "" }}""", Encoding.UTF8, "{{ entry.Request.PostData.MimeType }}"));
                 {%- endif %}                
             {% endif %}            
