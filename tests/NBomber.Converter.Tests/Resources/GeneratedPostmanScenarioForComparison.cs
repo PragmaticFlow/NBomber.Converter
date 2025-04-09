@@ -11,7 +11,6 @@ public class HelloWorldPostmanExample
 
         var scn1 = Scenario.Create("scenario_1", async context =>
         {
-
             var step1 = await Step.Run("step 1 - SEND SMALL IMAGE", context, async () =>
             {
                 var request = Http.CreateRequest("PUT", "https://clients6.google.com/upload/drive/v2internal/batch?key=AIzaSyD_InbmSFufIEps5UAt2NmB_3LvBH3Sz_8")
