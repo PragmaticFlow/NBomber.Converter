@@ -12,7 +12,7 @@ Log.Logger = new LoggerConfiguration()
     )
     .CreateLogger();
 
-var version = typeof(HARScenarioConverter).Assembly.GetName().Version;
+var version = typeof(OpenApiScenarioConverter).Assembly.GetName().Version;
 Log.Information("{0} version: {1}.{2}.{3}", "NBomber Converter", version.Major, version.Minor, version.Build);
 
 Parser.Default.ParseArguments<CliArgs>(args)
@@ -28,7 +28,7 @@ Parser.Default.ParseArguments<CliArgs>(args)
 
                 try
                 {
-                    var harScenario = HARScenarioConverter.Convert(content);
+                    var harScenario = OpenApiScenarioConverter.Convert(content);
                     File.WriteAllText(o.OutputFilePath, harScenario);
                     Log.Information($"Wrote NBomber scenario to {o.OutputFilePath}");
                 }

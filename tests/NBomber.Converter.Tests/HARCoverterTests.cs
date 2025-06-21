@@ -15,7 +15,7 @@ public class HARCoverterTests
         var harFileContent = File.ReadAllText(@"Resources/HarExample_4steps.har");
 
         // Act
-        var generatedScenario = HARScenarioConverter.Convert(harFileContent);
+        var generatedScenario = OpenApiScenarioConverter.Convert(harFileContent);
         generatedScenario = ConverterTestHelper.RemoveSpacesAndBackslashSymbols(generatedScenario);
 
         // Assert
@@ -29,7 +29,7 @@ public class HARCoverterTests
         var harFileContent = File.ReadAllText(@"Resources/CorruptedHar_4steps.har");
 
         // Act
-        Action act = () => HARScenarioConverter.Convert(harFileContent);
+        Action act = () => OpenApiScenarioConverter.Convert(harFileContent);
 
         // Assert
         Assert.Throws<FileFormatException>(act);
@@ -40,7 +40,7 @@ public class HARCoverterTests
     {
         // Arrange
         var harFileContent = File.ReadAllText(@"Resources/HarExample_4steps.har");
-        var generatedScenario = HARScenarioConverter.Convert(harFileContent);
+        var generatedScenario = OpenApiScenarioConverter.Convert(harFileContent);
 
         ConverterTestHelper.DeleteReportsIfExists();        
 
