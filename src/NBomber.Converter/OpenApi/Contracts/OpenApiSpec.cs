@@ -1,5 +1,4 @@
-﻿using NBomber.Converter.Postman.Contracts;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace NBomber.Converter.OpenApi.Contracts;
 
@@ -45,26 +44,14 @@ public class Server
 public class PathItem
 {
     [JsonPropertyName("get")]
-    public Operation? Get { get; set; }
+    public object? Get { get; set; }
 
     [JsonPropertyName("post")]
-    public Operation? Post { get; set; }
+    public object? Post { get; set; }
 
     [JsonPropertyName("put")]
-    public Operation? Put { get; set; }
+    public object? Put { get; set; }
 
     [JsonPropertyName("delete")]
-    public Operation? Delete { get; set; }
-}
-
-public class Operation
-{
-    [JsonPropertyName("summary")]
-    public string Summary { get; set; }
-
-    [JsonPropertyName("operationId")]
-    public string OperationId { get; set; }
-
-    [JsonPropertyName("responses")]
-    public Dictionary<string, Response> Responses { get; set; }
+    public object? Delete { get; set; }
 }

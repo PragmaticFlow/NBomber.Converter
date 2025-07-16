@@ -20,6 +20,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <EmbeddedResource Include="OpenApi\OpenApiScenarioTemplate.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </EmbeddedResource>
       <EmbeddedResource Include="Postman\PostmanScenarioTemplate.txt">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </EmbeddedResource>

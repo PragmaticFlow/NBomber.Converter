@@ -1,0 +1,32 @@
+﻿using NBomber.CSharp;
+using NBomber.Http.CSharp;
+using System.Text;
+using System.Net.Http;
+
+public class HelloWorldOpenApiExample
+{
+    public void Run()
+    {
+        using var httpClient = new HttpClient();
+	{%- if model.Servers and model.Servers.size > 0 and model.Servers[0].Url %}
+	string baseUrl = "{{ model.Servers[0].Url }}";
+	{% else %}
+	string baseUrl = "<BASE_URL>";
+	{%- endif %}	
+
+        var scn1 = Scenario.Create("scenario_1", async context =>
+        {
+
+		{% for path in model.Paths %}
+		{{ path.key }}
+		{% endfor %}
+
+            return Response.Ok();
+        })
+        .WithRestartIterationOnFail(shouldRestart: false);
+
+        NBomberRunner
+            .RegisterScenarios(scn1)
+            .Run();
+    }
+}
