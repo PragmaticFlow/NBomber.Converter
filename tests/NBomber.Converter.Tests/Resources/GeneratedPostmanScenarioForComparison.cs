@@ -7,7 +7,7 @@ public class HelloWorldPostmanExample
 {
     public void Run()
     {
-        using var httpClient = Http.CreateDefaultClient();
+        var httpClient = Http.CreateDefaultClient();
 
         var scn1 = Scenario.Create("scenario_1", async context =>
         {
