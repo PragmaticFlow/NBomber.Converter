@@ -6,7 +6,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <Company>NBomber</Company>
-        <Version>0.1.1</Version>
+        <Version>0.1.2</Version>
         <Copyright>NBomber@2025</Copyright>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
