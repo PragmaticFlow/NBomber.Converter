@@ -14,12 +14,13 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: 8.x.x
-    - name: Restore dependencies
-      run: dotnet restore
+        dotnet-version: 9.x.x
+      
     - name: Pack
       run: dotnet pack src/NBomber.Converter/NBomber.Converter.csproj -c Release -o artifacts --include-source
+      
     - name: Pack Tool
-      run: dotnet pack src/NBomber.Converter.Tool/NBomber.Converter.Tool.csproj -c Release -o artifacts --include-source      
+      run: dotnet pack src/NBomber.Converter.Tool/NBomber.Converter.Tool.csproj -c Release -o artifacts --include-source
+      
     - name: Publish
       run: dotnet nuget push artifacts/**.nupkg -s https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_TOKEN }}
