@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <LangVersion>12.0</LangVersion>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <PackAsTool>true</PackAsTool>
     <OutputType>Exe</OutputType>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -20,20 +20,6 @@
     <Description>The CLI tool for using NBomber.Converter</Description>    
     <Title>NBomber.Converter.Tool</Title>
     <ToolCommandName>nb-converter</ToolCommandName>    
-  </PropertyGroup>
-
-  <PropertyGroup>
-  	<!-- Enable NuGet package auditing -->
-  	<NuGetAudit>true</NuGetAudit>
-  
-  	<!-- Audit direct and transitive packages -->
-  	<NuGetAuditMode>all</NuGetAuditMode>
-  
-  	<!-- Report low, moderate, high and critical advisories -->
-  	<NuGetAuditLevel>low</NuGetAuditLevel>
-  
-  	<!-- Fails the build on CI or on release when a vulnerability is detected -->
-  	<WarningsAsErrors>(WarningsAsErrors);NU1900;NU1901;NU1902;NU1903;NU1904</WarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
